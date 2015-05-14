@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adaptive Temporal Model for IPTV Program Recommendation</title>
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <link href='http://fonts.useso.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+  <!--[if lt IE 9]>
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="dist/css/layout.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="https://github.com/erraX/iptvrecsys"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+      <h1>IPTV RECSYS</h1>
+      <h2>Adaptive Temporal Model for IPTV Program Recommendation</h2>
+      <p><a href="http://github.com/erraX">@erraX</a></p>
+    </div>
+
+    <div class="content dataset">
+      <h1 class="text-uppercase">Dataset</h1>
+      <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">Trainset</a></li>
+        <li role="presentation"><a href="#">Testset</a></li>
+        <li role="presentation"><a href="#">UserInfo</a></li>
+        <li role="presentation"><a href="#">ProgramInfo</a></li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th> <th>CONTENT_ID</th> <th>CLASS_NAME</th> <th>STARTTIME</th> <th>ENDTIME</th> <th>TIMESPAN</th> <th>RECORD_DATE</th> <th>USERID</th> <th>TAGTIME</th> <th>ETAGTIME</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
+          </tr>
+          <tr>
+            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
+          </tr>
+          <tr>
+            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
+          </tr>
+          <tr>
+            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
+          </tr>
+          <tr>
+            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
+          </tr>
+        </tbody>
+      </table>
+      <nav>
+        <ul class="pager">
+          <li><input type="text"><label>/50</label></li>
+          <li><a href="#">Go</a></li>
+        </ul>
+        <ul class="pager">
+          <li><a href="#">Previous</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="content timetag">
+      <h1 class="text-uppercase">Timetag</h1>
+      <label for="">User ID:</label>
+      <input id="userid-timetag" type="text">
+      <button type="button" id="query-timetag" class="btn btn-success">Query</button>
+      <div class="result row">
+        <div class="beforeTag col-xs-6">
+          <h2>00034C847095</h2>
+          <img src="img/btDemo.png" alt="">
+          <h3>Before Time Tag</h3>
+        </div>
+        <div class="afterTag col-xs-6">
+          <h2>00034C847095</h2>
+          <img src="img/atDemo.png" alt="">
+          <h3>After Time Tag</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="dist/js/iptv.js"></script>
+</body>
+</html>

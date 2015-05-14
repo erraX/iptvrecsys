@@ -1,0 +1,154 @@
+body {
+  background-color: #ebe7df;
+  font-family: 'Coda', cursive;
+}
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+
+  .header {
+    text-align: center;
+    /* color: #666; */
+    padding: 100px 0;
+
+    h1 {
+      font-size: 4em;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      font-weight: 200;
+    }
+  }
+
+
+  .content {
+    margin-bottom: 150px;
+    h1 {
+      /* text-transform: uppercase; */
+      margin-bottom: 50px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      font-size: 3em;
+      font-weight: 400;
+    }
+  }
+
+  .timetag {
+    text-align: center;
+    label {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      width: 50px;
+      font-weight: 200;
+    }
+
+    #userid-timetag {
+      height: 30px;
+    }
+
+    #query-timetag {
+      width: 90px;
+      height: 30px;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .result {
+      margin: 20px auto;
+      width: 800px;
+      h2 {
+        font-size: 1.5em;
+      }
+
+      h3 {
+        font-size: 1.3em;
+      }
+
+      img {
+        width: 300px;
+      }
+    }
+  }
+
+  .dataset {
+    /* background-color: white; */
+
+    .nav-pills {
+
+      width: 492px;
+      margin: 0 auto 20px;
+      border: 3px solid #ddd8ce;
+
+      li {
+        height: 30px;
+        line-height: 10px;
+        width: 120px;
+        text-align: center;
+      }
+
+      li > a {
+        border-radius: 0px;
+        height: 30px;
+      }
+
+      .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+        color: white;
+        background-color: #2489c5;
+      }
+    }
+
+    table {
+      width: 970px;
+      margin: 0 auto 10px auto;
+      border: 3px solid #ddd8ce;
+      text-align: center;
+
+      td {
+        border: 1px solid #C1C1C1;
+      }
+
+      thead > tr > th {
+        background-color: #2489c5;
+        color: white;
+        font-weight: 400;
+        text-align: center;
+      }
+
+      tbody > tr {
+        background-color: white;
+      }
+    }
+
+    nav {
+      ul.pager {
+        text-align: right;
+        margin: 0px auto;
+
+        li > input {
+          width: 50px;
+          height: 30px;
+        }
+
+        li > label {
+          display: inline-block;
+          height: 30px;
+          line-height: 30px;
+          width: 40px;
+          font-weight: 200;
+        }
+
+        li > a {
+          border-radius: 0px;
+          width: 90px;
+          background-color: #2489c5;
+          color: white;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

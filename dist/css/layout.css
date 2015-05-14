@@ -1,0 +1,129 @@
+body {
+  background-color: #ebe7df;
+  font-family: 'Coda', cursive;
+}
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+.container .header {
+  text-align: center;
+  /* color: #666; */
+  padding: 100px 0;
+}
+.container .header h1 {
+  font-size: 4em;
+}
+.container .header h2 {
+  font-size: 1.5em;
+  font-weight: 200;
+}
+.container .content {
+  margin-bottom: 150px;
+}
+.container .content h1 {
+  /* text-transform: uppercase; */
+  margin-bottom: 50px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 3em;
+  font-weight: 400;
+}
+.container .timetag {
+  text-align: center;
+}
+.container .timetag label {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 50px;
+  font-weight: 200;
+}
+.container .timetag #userid-timetag {
+  height: 30px;
+}
+.container .timetag #query-timetag {
+  width: 90px;
+  height: 30px;
+  padding: 0;
+  border-radius: 0;
+}
+.container .timetag .result {
+  margin: 20px auto;
+  width: 800px;
+}
+.container .timetag .result h2 {
+  font-size: 1.5em;
+}
+.container .timetag .result h3 {
+  font-size: 1.3em;
+}
+.container .timetag .result img {
+  width: 300px;
+}
+.container .dataset {
+  /* background-color: white; */
+}
+.container .dataset .nav-pills {
+  width: 492px;
+  margin: 0 auto 20px;
+  border: 3px solid #ddd8ce;
+}
+.container .dataset .nav-pills li {
+  height: 30px;
+  line-height: 10px;
+  width: 120px;
+  text-align: center;
+}
+.container .dataset .nav-pills li > a {
+  border-radius: 0px;
+  height: 30px;
+}
+.container .dataset .nav-pills .nav-pills > li.active > a, .container .dataset .nav-pills .nav-pills > li.active > a:focus, .container .dataset .nav-pills .nav-pills > li.active > a:hover {
+  color: white;
+  background-color: #2489c5;
+}
+.container .dataset table {
+  width: 970px;
+  margin: 0 auto 10px auto;
+  border: 3px solid #ddd8ce;
+  text-align: center;
+}
+.container .dataset table td {
+  border: 1px solid #C1C1C1;
+}
+.container .dataset table thead > tr > th {
+  background-color: #2489c5;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+}
+.container .dataset table tbody > tr {
+  background-color: white;
+}
+.container .dataset nav ul.pager {
+  text-align: right;
+  margin: 0px auto;
+}
+.container .dataset nav ul.pager li > input {
+  width: 50px;
+  height: 30px;
+}
+.container .dataset nav ul.pager li > label {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 40px;
+  font-weight: 200;
+}
+.container .dataset nav ul.pager li > a {
+  border-radius: 0px;
+  width: 90px;
+  background-color: #2489c5;
+  color: white;
+  text-align: center;
+}
+
+/*# sourceMappingURL=layout.css.map */
