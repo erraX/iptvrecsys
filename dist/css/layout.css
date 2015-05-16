@@ -105,7 +105,8 @@ body {
 }
 .container .dataset nav ul.pager {
   text-align: right;
-  margin: 0px auto;
+  width: 252px;
+  float: right;
 }
 .container .dataset nav ul.pager li > input {
   width: 50px;
@@ -124,6 +125,13 @@ body {
   background-color: #2489c5;
   color: white;
   text-align: center;
+}
+.container .dataset nav:after {
+  content: '.';
+  display: block;
+  height: 0px;
+  visibility: hidden;
+  clear: both;
 }
 
 /*# sourceMappingURL=layout.css.map */

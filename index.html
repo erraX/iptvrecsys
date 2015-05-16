@@ -14,7 +14,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <a href="https://github.com/erraX/iptvrecsys"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+      <!-- <a href="https://github.com/erraX/iptvrecsys"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data&#45;canonical&#45;src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a> -->
       <h1>IPTV RECSYS</h1>
       <h2>Adaptive Temporal Model for IPTV Program Recommendation</h2>
       <p><a href="http://github.com/erraX">@erraX</a></p>
@@ -26,38 +26,14 @@
         <li role="presentation" class="active"><a href="#">Trainset</a></li>
         <li role="presentation"><a href="#">Testset</a></li>
         <li role="presentation"><a href="#">UserInfo</a></li>
-        <li role="presentation"><a href="#">ProgramInfo</a></li>
+        <li role="presentation"><a href="#">VideoInfo</a></li>
       </ul>
       <table>
-        <thead>
-          <tr>
-            <th>ID</th> <th>CONTENT_ID</th> <th>CLASS_NAME</th> <th>STARTTIME</th> <th>ENDTIME</th> <th>TIMESPAN</th> <th>RECORD_DATE</th> <th>USERID</th> <th>TAGTIME</th> <th>ETAGTIME</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
-          </tr>
-          <tr>
-            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
-          </tr>
-          <tr>
-            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
-          </tr>
-          <tr>
-            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
-          </tr>
-          <tr>
-            <td>220875</td> <td>V1511012310033</td> <td>生活剧</td> <td>19:24</td> <td>19:50</td> <td>1588</td> <td>2011/3/5</td> <td>00034C847095</td> <td>晚上</td> <td>T3</td>
-          </tr>
-        </tbody>
       </table>
       <nav>
         <ul class="pager">
           <li><input type="text"><label>/50</label></li>
           <li><a href="#">Go</a></li>
-        </ul>
-        <ul class="pager">
           <li><a href="#">Previous</a></li>
           <li><a href="#">Next</a></li>
         </ul>
@@ -82,8 +58,32 @@
       </div>
     </div>
   </div>
+  <script type="text/template" id="dataset-template">
+    <thead>
+      <tr>
+        <% _.each(headers, function(header) { %>
+          <th><%= header %></th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <% _.each(data, function(entry) { %>
+        <tr>
+          <% for (key in entry) { %>
+            <td><%= entry[key] %></td>
+            <% } %>
+        </tr>
+      <% }); %>
+    </tbody>
+  </script>
   <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="dist/js/iptv.js"></script>
+  <script src="http://cdn.bootcss.com/underscore.js/1.8.3/underscore.js"></script>
+  <script src="http://cdn.bootcss.com/backbone.js/1.1.2/backbone-min.js"></script>
+  <script src="dist/js/model.js"></script>
+  <script src="dist/js/collection.js"></script>
+  <script src="dist/js/view.js"></script>
+  <script src="dist/js/router.js"></script>
+  <script src="dist/js/app.js"></script>
 </body>
 </html>

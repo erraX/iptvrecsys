@@ -78,7 +78,6 @@ body {
     /* background-color: white; */
 
     .nav-pills {
-
       width: 492px;
       margin: 0 auto 20px;
       border: 3px solid #ddd8ce;
@@ -126,7 +125,8 @@ body {
     nav {
       ul.pager {
         text-align: right;
-        margin: 0px auto;
+        width: 252px;
+        float: right;
 
         li > input {
           width: 50px;
@@ -149,6 +149,14 @@ body {
           text-align: center;
         }
       }
+    }
+
+    nav:after {
+      content: '.';
+      display: block;
+      height: 0px;
+      visibility: hidden;
+      clear: both;
     }
   }
 }
