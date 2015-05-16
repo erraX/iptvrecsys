@@ -9,18 +9,30 @@ body {
 }
 .container .header {
   text-align: center;
-  /* color: #666; */
   padding: 100px 0;
+  border-bottom: 3px solid;
+  color: #000;
+}
+.container .header a {
+  text-decoration: none;
+  margin: 5px;
+  color: #000;
+}
+.container .header p {
+  margin: 30px;
+  font-size: 1.5em;
 }
 .container .header h1 {
-  font-size: 4em;
+  font-size: 7em;
 }
 .container .header h2 {
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: 200;
 }
 .container .content {
-  margin-bottom: 150px;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  color: #000;
 }
 .container .content h1 {
   /* text-transform: uppercase; */
@@ -66,6 +78,10 @@ body {
 .container .dataset {
   /* background-color: white; */
 }
+.container .dataset .nav > li > a:focus, .container .dataset .nav > li > a:hover {
+  background-color: #2489c5;
+  color: white;
+}
 .container .dataset .nav-pills {
   width: 492px;
   margin: 0 auto 20px;
@@ -81,7 +97,7 @@ body {
   border-radius: 0px;
   height: 30px;
 }
-.container .dataset .nav-pills .nav-pills > li.active > a, .container .dataset .nav-pills .nav-pills > li.active > a:focus, .container .dataset .nav-pills .nav-pills > li.active > a:hover {
+.container .dataset .nav-pills li.active > a, .container .dataset .nav-pills li.active > a:focus, .container .dataset .nav-pills li.active > a:hover {
   color: white;
   background-color: #2489c5;
 }
@@ -125,6 +141,9 @@ body {
   background-color: #2489c5;
   color: white;
   text-align: center;
+}
+.container .dataset nav ul.pager li > a:hover {
+  background-color: #337ab7;
 }
 .container .dataset nav:after {
   content: '.';

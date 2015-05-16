@@ -7,6 +7,7 @@ app.AppView = Backbone.View.extend({
 
   initialize: function() {
     this.dastasetView = new DatasetView();
+    this.timetagView = new TimetagView();
   }
 });
 

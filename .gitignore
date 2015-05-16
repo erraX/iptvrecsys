@@ -1,5 +1,6 @@
 .DS_Store
 .grunt
+dataset/
 node_modules/
 .sass-cache/
 img/
