@@ -43,34 +43,87 @@ body {
   font-size: 3em;
   font-weight: 400;
 }
-.container .timetag {
-  text-align: center;
+.container .content h2 {
+  font-size: 1.5em;
 }
-.container .timetag label {
+.container .content h3 {
+  font-size: 1.3em;
+}
+.container .content .query-label {
   display: inline-block;
   height: 30px;
   line-height: 30px;
   width: 50px;
   font-weight: 200;
 }
-.container .timetag #userid-timetag {
+.container .content .query-input {
   height: 30px;
 }
-.container .timetag #query-timetag {
+.container .content .query-btn {
   width: 90px;
   height: 30px;
   padding: 0;
   border-radius: 0;
 }
+.container .content table {
+  width: 970px;
+  margin: 0 auto 10px auto;
+  border: 3px solid #ddd8ce;
+  text-align: center;
+}
+.container .content table td {
+  border: 1px solid #C1C1C1;
+  height: 30px;
+}
+.container .content table thead > tr > th {
+  background-color: #2489c5;
+  color: white;
+  font-weight: 400;
+  height: 30px;
+  text-align: center;
+}
+.container .content table tbody > tr {
+  background-color: white;
+}
+.container .comparison {
+  text-align: center;
+}
+.container .comparison label {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 50px;
+  font-weight: 200;
+}
+.container .comparison h2 {
+  margin-top: 50px;
+  font-size: 2em;
+  border-bottom: 1px dotted #aaa;
+}
+.container .comparison table {
+  width: 470px;
+}
+.container .comparison table thead > tr > th {
+  background-color: #1f7f5c;
+}
+.container .comparison table tbody > tr.seen {
+  background-color: #D8D8D8;
+}
+.container .comparison table tbody > tr.rec {
+  background-color: #F8E71C;
+}
+.container .comparison table td {
+  border: 0px;
+}
+.container .comparison table.ucf > thead > tr > th {
+  background-color: #695D8C;
+}
+.container .timetag {
+  text-align: center;
+}
 .container .timetag .result {
   margin: 20px auto;
   width: 800px;
-}
-.container .timetag .result h2 {
-  font-size: 1.5em;
-}
-.container .timetag .result h3 {
-  font-size: 1.3em;
 }
 .container .timetag .result img {
   width: 300px;
@@ -101,28 +154,11 @@ body {
   color: white;
   background-color: #2489c5;
 }
-.container .dataset table {
-  width: 970px;
-  margin: 0 auto 10px auto;
-  border: 3px solid #ddd8ce;
-  text-align: center;
-}
-.container .dataset table td {
-  border: 1px solid #C1C1C1;
-}
-.container .dataset table thead > tr > th {
-  background-color: #2489c5;
-  color: white;
-  font-weight: 400;
-  text-align: center;
-}
-.container .dataset table tbody > tr {
-  background-color: white;
-}
 .container .dataset nav ul.pager {
   text-align: right;
   width: 252px;
   float: right;
+  margin: 0;
 }
 .container .dataset nav ul.pager li > input {
   width: 50px;
