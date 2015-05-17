@@ -172,11 +172,83 @@ var TimetagView = Backbone.View.extend({
   el: '.content.timetag',
 
   initialize: function() {
-  },
+    this.$before = this.$('#before');
+    this.$after = this.$('#after');
+    this.$inputUser = this.$('#userid-timetag');
 
-  render: function() {
+    $.ajax({
+      context: this,
+      type: 'get',
+      url: 'dataset/timetag.json',
+      success: function(data) {
+        this.data = data;
+        this.currentUser = '00264C50B221';
+        this.render();
+      }
+    });
   },
 
   events: {
+    'click #query-timetag': 'startChart'
   },
+
+  render: function() {
+    this.chart(this.currentUser);
+  },
+
+  startChart: function() {
+    this.currentUser = this.$inputUser.val();
+    console.log(this.$inputUser.val());
+    this.render();
+  },
+
+  chart: function(userid) {
+    console.log(userid);
+    var data = this.data[userid];
+    console.log(data);
+    var colors = ["#98FF72", "#65D97D", "#42A881", "#1F8784", "#00697D"];
+    var coord = data.coord;
+    var interval = data.interval;
+    var yMax = _.max(coord, function(value) {
+      return value;
+    });
+    var beforeSeries = [{name: 'Play', data: coord}];
+    var afterSeries = [{name: 'Play', data: coord}];
+
+    _.each(interval, function(inter, idx) {
+      var areaData = [];
+      areaData.push([inter[0], 0]);
+      areaData.push([inter[0], yMax]);
+      areaData.push([inter[1], yMax]);
+      areaData.push([inter[1], 0]);
+      afterSeries.push({type: 'area', name:'Tag' + (idx + 1), lineWidth: 0, color: colors[idx], data: areaData});
+    });
+
+    this.$before.highcharts({
+      chart: { spacingTop: 50, spacingRight: 20, width: 456 },
+      title: { text: '' },
+      credits: { enabled: false },
+      exporting: { enabled: false },
+      plotOptions: { series: { marker: { enabled: false } } },
+      xAxis: { categories: ['1', '2', '3' ,'4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'] },
+      yAxis: { max: yMax, title: { text: 'Play time', rotation: 270 } },
+      tooltip: { enabled: true, valueSuffix: 'times'},
+      legend: { layout: 'horizontal', align: 'right', verticalAlign: 'bottom' },
+      series: beforeSeries
+    });
+
+    this.$after.highcharts({
+      chart: { spacingTop: 50, spacingRight: 20, width: 456 },
+      title: { text: '' },
+      credits: { enabled: false },
+      exporting: { enabled: false },
+      plotOptions: { series: { marker: { enabled: false } } },
+      xAxis: { categories: ['1', '2', '3' ,'4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'] },
+      yAxis: { max: yMax, title: { text: 'Play time', rotation: 270 } },
+      tooltip: { enabled: true, valueSuffix: 'times'},
+      legend: { layout: 'horizontal', align: 'right', verticalAlign: 'bottom' },
+      series: afterSeries
+    });
+  },
+
 });
