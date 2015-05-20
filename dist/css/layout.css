@@ -120,13 +120,11 @@ body {
 }
 .container .timetag {
   text-align: center;
+  width: 970;
 }
 .container .timetag .result {
   margin: 20px auto;
   width: 970px;
-}
-.container .timetag .result img {
-  width: 300px;
 }
 .container .dataset {
   /* background-color: white; */
@@ -173,6 +171,7 @@ body {
 }
 .container .dataset nav ul.pager li > a {
   border-radius: 0px;
+  border: 0px;
   width: 90px;
   background-color: #2489c5;
   color: white;

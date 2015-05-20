@@ -1,3 +1,7 @@
+$blue: #2489c5;
+$yellow: #F8E71C;
+$grey: #D8D8D8;
+
 body {
   background-color: #ebe7df;
   font-family: 'Coda', cursive;
@@ -89,7 +93,7 @@ body {
       }
 
       thead > tr > th {
-        background-color: #2489c5;
+        background-color: $blue;
         color: white;
         font-weight: 400;
         height: 30px;
@@ -126,11 +130,11 @@ body {
       }
 
       tbody > tr.seen {
-        background-color: #D8D8D8;
+        background-color: $grey;
       }
 
       tbody > tr.rec {
-        background-color: #F8E71C;
+        background-color: $yellow;
       }
 
       td {
@@ -145,15 +149,12 @@ body {
 
   .timetag {
     text-align: center;
+    width: 970px;
 
     .result {
       margin: 20px auto;
       width: 970px;
 
-
-      img {
-        width: 300px;
-      }
     }
   }
 
@@ -161,7 +162,7 @@ body {
     /* background-color: white; */
 
     .nav>li>a:focus, .nav>li>a:hover {
-      background-color: #2489c5;
+      background-color: $blue;
       color: white;
     }
 
@@ -184,7 +185,7 @@ body {
 
       li.active>a, li.active>a:focus, li.active>a:hover {
         color: white;
-        background-color: #2489c5;
+        background-color: $blue;
       }
     }
 
@@ -211,8 +212,9 @@ body {
 
         li > a {
           border-radius: 0px;
+          border: 0px;
           width: 90px;
-          background-color: #2489c5;
+          background-color: $blue;
           color: white;
           text-align: center;
         }
