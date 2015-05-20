@@ -8,6 +8,7 @@ body {
   margin: 0 auto;
 }
 .container .header {
+  opacity: 0;
   text-align: center;
   padding: 100px 0;
   border-bottom: 3px solid;
@@ -120,7 +121,7 @@ body {
 }
 .container .timetag {
   text-align: center;
-  width: 970;
+  width: 970px;
 }
 .container .timetag .result {
   margin: 20px auto;
@@ -186,6 +187,42 @@ body {
   height: 0px;
   visibility: hidden;
   clear: both;
+}
+
+.header.show h1 {
+  -webkit-animation: pop-in 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
+}
+.header.show h2 {
+  -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
+}
+.header.show .icon:nth-child(1) {
+  -webkit-animation: show-icon 0.5s 0.8 forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
+}
+.header.show .icon:nth-child(2) {
+  -webkit-animation: show-icon 0.5s 1.3s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
+}
+.header.show .icon:nth-child(3) {
+  -webkit-animation: show-icon 0.5s 1.8s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
+}
+
+/* Animations: */
+@-webkit-keyframes pop-in {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes show-icon {
+  0% {
+    opacity: 0;
+    transform: rotateZ(-40deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateZ(0);
+  }
 }
 
 /*# sourceMappingURL=layout.css.map */
