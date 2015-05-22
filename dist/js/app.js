@@ -12,10 +12,9 @@ app.AppView = Backbone.View.extend({
 });
 
 $(function() {
-  new app.AppView();
-
-  $('.header').addClass('show');
-  // $("#name").typeahead({ source:["item1", "item2", "item3"] });
-  //example_collection.json
-  // ["item1","item2","item3"]
+  // $('.header').addClass('show');
+  setTimeout(function() {
+    new app.AppView();
+  }, 1000);
+  // new app.AppView();
 });

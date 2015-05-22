@@ -8,11 +8,23 @@ body {
   margin: 0 auto;
 }
 .container .header {
-  opacity: 0;
   text-align: center;
   padding: 100px 0;
   border-bottom: 3px solid;
   color: #000;
+}
+.container .header .icon {
+  opacity: 0;
+  -webkit-animation: show-icon 0.5s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
+}
+.container .header .icon:nth-child(5) {
+  -webkit-animation-delay: 1s;
+}
+.container .header .icon:nth-child(6) {
+  -webkit-animation-delay: 1.2s;
+}
+.container .header .icon:nth-child(7) {
+  -webkit-animation-delay: 1.4s;
 }
 .container .header a {
   text-decoration: none;
@@ -20,15 +32,21 @@ body {
   color: #000;
 }
 .container .header p {
+  opacity: 0;
   margin: 30px;
   font-size: 1.5em;
+  -webkit-animation: pop-in 0.4s 0.6s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
 }
 .container .header h1 {
+  opacity: 0;
   font-size: 7em;
+  -webkit-animation: pop-in 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
 }
 .container .header h2 {
+  opacity: 0;
   font-size: 2em;
   font-weight: 200;
+  -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
 }
 .container .content {
   margin-bottom: 100px;
@@ -131,6 +149,7 @@ body {
   /* background-color: white; */
 }
 .container .dataset .nav > li > a:focus, .container .dataset .nav > li > a:hover {
+  transition: background-color 0.3s, color 0.3s;
   background-color: #2489c5;
   color: white;
 }
@@ -150,6 +169,7 @@ body {
   height: 30px;
 }
 .container .dataset .nav-pills li.active > a, .container .dataset .nav-pills li.active > a:focus, .container .dataset .nav-pills li.active > a:hover {
+  transition: background-color 0.3s, color 0.3s;
   color: white;
   background-color: #2489c5;
 }
@@ -189,28 +209,30 @@ body {
   clear: both;
 }
 
-.header.show h1 {
-  -webkit-animation: pop-in 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-}
-.header.show h2 {
-  -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-}
-.header.show .icon:nth-child(1) {
-  -webkit-animation: show-icon 0.5s 0.8 forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-}
-.header.show .icon:nth-child(2) {
-  -webkit-animation: show-icon 0.5s 1.3s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-}
-.header.show .icon:nth-child(3) {
-  -webkit-animation: show-icon 0.5s 1.8s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-}
-
 /* Animations: */
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 @-webkit-keyframes pop-in {
   0% {
+    opacity: 0;
     transform: scale(0.7);
   }
   100% {
+    opacity: 1;
     transform: scale(1);
   }
 }
