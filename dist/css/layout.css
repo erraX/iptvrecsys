@@ -7,6 +7,31 @@ body {
   width: 1000px;
   margin: 0 auto;
 }
+.container .nav > li > a:focus, .container .nav > li > a:hover {
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #2489c5;
+  color: white;
+}
+.container .nav-pills {
+  width: 492px;
+  margin: 0 auto 20px;
+  border: 3px solid #ddd8ce;
+}
+.container .nav-pills li {
+  height: 30px;
+  line-height: 10px;
+  width: 120px;
+  text-align: center;
+}
+.container .nav-pills li > a {
+  border-radius: 0px;
+  height: 30px;
+}
+.container .nav-pills li.active > a, .container .nav-pills li.active > a:focus, .container .nav-pills li.active > a:hover {
+  transition: background-color 0.3s, color 0.3s;
+  color: white;
+  background-color: #2489c5;
+}
 .container .header {
   text-align: center;
   padding: 100px 0;
@@ -107,6 +132,57 @@ body {
 .container .comparison {
   text-align: center;
 }
+.container .comparison .nav > li > a:focus, .container .comparison .nav > li > a:hover {
+  background-color: #d9534f;
+}
+.container .comparison .nav-pills {
+  width: 248px;
+  margin-top: 30px;
+}
+.container .comparison nav ul.pager {
+  width: 470px;
+  margin: 0 auto;
+}
+.container .comparison nav ul.pager li {
+  padding-left: 5px;
+}
+.container .comparison nav ul.pager li > input {
+  width: 70px;
+  height: 30px;
+}
+.container .comparison nav ul.pager li > label {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 40px;
+  font-weight: 200;
+}
+.container .comparison nav ul.pager li > a {
+  border-radius: 0px;
+  border: 0px;
+  width: 90px;
+  background-color: #d9534f;
+  color: white;
+  text-align: center;
+}
+.container .comparison nav ul.pager li > a:hover {
+  background-color: #ac2925;
+}
+.container .comparison nav:after {
+  content: '.';
+  display: block;
+  height: 0px;
+  visibility: hidden;
+  clear: both;
+}
+.container .comparison li > a {
+  color: #d9534f;
+}
+.container .comparison li.active > a, .container .comparison li.active > a:focus, .container .comparison li.active > a:hover {
+  transition: background-color 0.3s, color 0.3s;
+  color: white;
+  background-color: #d9534f;
+}
 .container .comparison label {
   display: inline-block;
   height: 30px;
@@ -128,7 +204,7 @@ body {
 .container .comparison table tbody > tr.seen {
   background-color: #D8D8D8;
 }
-.container .comparison table tbody > tr.rec {
+.container .comparison table tbody > tr.hit {
   background-color: #F8E71C;
 }
 .container .comparison table td {
@@ -147,31 +223,6 @@ body {
 }
 .container .dataset {
   /* background-color: white; */
-}
-.container .dataset .nav > li > a:focus, .container .dataset .nav > li > a:hover {
-  transition: background-color 0.3s, color 0.3s;
-  background-color: #2489c5;
-  color: white;
-}
-.container .dataset .nav-pills {
-  width: 492px;
-  margin: 0 auto 20px;
-  border: 3px solid #ddd8ce;
-}
-.container .dataset .nav-pills li {
-  height: 30px;
-  line-height: 10px;
-  width: 120px;
-  text-align: center;
-}
-.container .dataset .nav-pills li > a {
-  border-radius: 0px;
-  height: 30px;
-}
-.container .dataset .nav-pills li.active > a, .container .dataset .nav-pills li.active > a:focus, .container .dataset .nav-pills li.active > a:hover {
-  transition: background-color 0.3s, color 0.3s;
-  color: white;
-  background-color: #2489c5;
 }
 .container .dataset nav ul.pager {
   text-align: right;

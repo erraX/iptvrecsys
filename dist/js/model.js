@@ -2,6 +2,13 @@
 
 var app = app || {};
 
+/* Recommend result: Test entry(class):
+User1:
+{''}
+
+User2:
+
+*/
 app.DataEntry = Backbone.Model.extend();
 
 app.Pager = Backbone.Model.extend({

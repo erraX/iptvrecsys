@@ -1,304 +1,369 @@
 $blue: #2489c5;
 $yellow: #F8E71C;
 $grey: #D8D8D8;
+$red: #d9534f;
 
 body {
-    background-color: #ebe7df;
-    font-family: 'Coda', cursive;
+  background-color: #ebe7df;
+  font-family: 'Coda', cursive;
 }
 
 .container {
-    width: 1000px;
-    margin: 0 auto;
+  width: 1000px;
+  margin: 0 auto;
 
-    .header {
+  .nav>li>a:focus, .nav>li>a:hover {
+    transition: background-color 0.3s, color 0.3s;
+    background-color: $blue;
+    color: white;
+  }
+
+  .nav-pills {
+    width: 492px;
+    margin: 0 auto 20px;
+    border: 3px solid #ddd8ce;
+
+    li {
+      height: 30px;
+      line-height: 10px;
+      width: 120px;
+      text-align: center;
+    }
+
+    li > a {
+      border-radius: 0px;
+      height: 30px;
+    }
+
+    li.active>a, li.active>a:focus, li.active>a:hover {
+      transition: background-color 0.3s, color 0.3s;
+      color: white;
+      background-color: $blue;
+    }
+
+  }
+  .header {
+    text-align: center;
+    padding: 100px 0;
+    border-bottom: 3px solid;
+    color: #000;
+
+    .icon {
+      opacity: 0;
+      -webkit-animation: show-icon 0.5s forwards cubic-bezier(.64,1.87,.64,.64);
+    }
+
+    .icon:nth-child(5) {
+      -webkit-animation-delay: 1s;
+    }
+
+    .icon:nth-child(6) {
+      -webkit-animation-delay: 1.2s;
+    }
+
+    .icon:nth-child(7) {
+      -webkit-animation-delay: 1.4s;
+    }
+
+    a {
+      text-decoration: none;
+      margin: 5px;
+      color: #000;
+    }
+
+    p {
+      opacity: 0;
+      margin: 30px;
+      font-size: 1.5em;
+      -webkit-animation: pop-in 0.4s 0.6s forwards cubic-bezier(.64,1.87,.64,.64);
+    }
+
+    h1 {
+      opacity: 0;
+      font-size: 7em;
+      -webkit-animation: pop-in 0.4s forwards cubic-bezier(.64,1.87,.64,.64);
+    }
+
+    h2 {
+      opacity: 0;
+      font-size: 2em;
+      font-weight: 200;
+      -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(.64,1.87,.64,.64);
+    }
+  }
+
+  .content {
+    margin-bottom: 100px;
+    margin-top: 100px;
+    color: #000;
+
+    h1 {
+      /* text-transform: uppercase; */
+      margin-bottom: 50px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      font-size: 3em;
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: 1.5em;
+    }
+
+    h3 {
+      font-size: 1.3em;
+    }
+
+    .query-label {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      width: 50px;
+      font-weight: 200;
+    }
+
+    .query-input{
+      height: 30px;
+    }
+
+    .query-btn {
+      width: 90px;
+      height: 30px;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    table {
+      width: 970px;
+      margin: 0 auto 10px auto;
+      border: 3px solid #ddd8ce;
+      text-align: center;
+
+      td {
+        border: 1px solid #C1C1C1;
+        height: 30px;
+      }
+
+      thead > tr > th {
+        background-color: $blue;
+        color: white;
+        font-weight: 400;
+        height: 30px;
         text-align: center;
-        padding: 100px 0;
-        border-bottom: 3px solid;
-        color: #000;
+      }
 
-        .icon {
-            opacity: 0;
-            -webkit-animation: show-icon 0.5s forwards cubic-bezier(.64,1.87,.64,.64);
-        }
+      tbody > tr {
+        background-color: white;
+      }
+    }
+  }
 
-        .icon:nth-child(5) {
-          -webkit-animation-delay: 1s;
-        }
-
-        .icon:nth-child(6) {
-          -webkit-animation-delay: 1.2s;
-        }
-
-        .icon:nth-child(7) {
-          -webkit-animation-delay: 1.4s;
-        }
-
-        a {
-            text-decoration: none;
-            margin: 5px;
-            color: #000;
-        }
-
-        p {
-            opacity: 0;
-            margin: 30px;
-            font-size: 1.5em;
-            -webkit-animation: pop-in 0.4s 0.6s forwards cubic-bezier(.64,1.87,.64,.64);
-        }
-
-        h1 {
-            opacity: 0;
-            font-size: 7em;
-            -webkit-animation: pop-in 0.4s forwards cubic-bezier(.64,1.87,.64,.64);
-        }
-
-        h2 {
-            opacity: 0;
-            font-size: 2em;
-            font-weight: 200;
-            -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(.64,1.87,.64,.64);
-        }
+  .comparison {
+    text-align: center;
+    
+    .nav>li>a:focus, .nav>li>a:hover {
+      background-color: $red;
     }
 
-    .content {
-        margin-bottom: 100px;
-        margin-top: 100px;
-        color: #000;
-
-        h1 {
-            /* text-transform: uppercase; */
-            margin-bottom: 50px;
-            height: 60px;
-            line-height: 60px;
-            text-align: center;
-            font-size: 3em;
-            font-weight: 400;
-        }
-
-        h2 {
-            font-size: 1.5em;
-        }
-
-        h3 {
-            font-size: 1.3em;
-        }
-
-        .query-label {
-            display: inline-block;
-            height: 30px;
-            line-height: 30px;
-            width: 50px;
-            font-weight: 200;
-        }
-
-        .query-input{
-            height: 30px;
-        }
-
-        .query-btn {
-            width: 90px;
-            height: 30px;
-            padding: 0;
-            border-radius: 0;
-        }
-
-        table {
-            width: 970px;
-            margin: 0 auto 10px auto;
-            border: 3px solid #ddd8ce;
-            text-align: center;
-
-            td {
-                border: 1px solid #C1C1C1;
-                height: 30px;
-            }
-
-            thead > tr > th {
-                background-color: $blue;
-                color: white;
-                font-weight: 400;
-                height: 30px;
-                text-align: center;
-            }
-
-            tbody > tr {
-                background-color: white;
-            }
-        }
+    .nav-pills {
+      width: 248px;
+      margin-top: 30px;
     }
 
-    .comparison {
-        text-align: center;
-        label {
-            display: inline-block;
-            height: 30px;
-            line-height: 30px;
-            width: 50px;
-            font-weight: 200;
+    nav {
+      ul.pager {
+        width: 470px;
+        margin: 0 auto;
+
+        li {
+          padding-left: 5px;
         }
 
-        h2 {
-            margin-top: 50px;
-            font-size: 2em;
-            border-bottom: 1px dotted #aaa;
+        li > input {
+          width: 70px;
+          height: 30px;
         }
 
-        table {
-            width: 470px;
-
-            thead > tr > th {
-                background-color: #1f7f5c;
-            }
-
-            tbody > tr.seen {
-                background-color: $grey;
-            }
-
-            tbody > tr.rec {
-                background-color: $yellow;
-            }
-
-            td {
-                border: 0px;
-            }
+        li > label {
+          display: inline-block;
+          height: 30px;
+          line-height: 30px;
+          width: 40px;
+          font-weight: 200;
         }
 
-        table.ucf > thead > tr > th {
-            background-color: #695D8C;
+        li > a {
+          border-radius: 0px;
+          border: 0px;
+          width: 90px;
+          background-color: $red;
+          color: white;
+          text-align: center;
         }
+
+        li > a:hover {
+          background-color: #ac2925;
+        }
+      }
     }
 
-    .timetag {
-        text-align: center;
-        width: 970px;
-
-        .result {
-            margin: 20px auto;
-            width: 970px;
-
-        }
+    nav:after {
+      content: '.';
+      display: block;
+      height: 0px;
+      visibility: hidden;
+      clear: both;
     }
 
-    .dataset {
-        /* background-color: white; */
-
-        .nav>li>a:focus, .nav>li>a:hover {
-            transition: background-color 0.3s, color 0.3s;
-            background-color: $blue;
-            color: white;
-        }
-
-        .nav-pills {
-            width: 492px;
-            margin: 0 auto 20px;
-            border: 3px solid #ddd8ce;
-
-            li {
-                height: 30px;
-                line-height: 10px;
-                width: 120px;
-                text-align: center;
-            }
-
-            li > a {
-                border-radius: 0px;
-                height: 30px;
-            }
-
-            li.active>a, li.active>a:focus, li.active>a:hover {
-                transition: background-color 0.3s, color 0.3s;
-                color: white;
-                background-color: $blue;
-            }
-        }
-
-
-        nav {
-            ul.pager {
-                text-align: right;
-                width: 252px;
-                float: right;
-                margin:0;
-
-                li > input {
-                    width: 50px;
-                    height: 30px;
-                }
-
-                li > label {
-                    display: inline-block;
-                    height: 30px;
-                    line-height: 30px;
-                    width: 40px;
-                    font-weight: 200;
-                }
-
-                li > a {
-                    border-radius: 0px;
-                    border: 0px;
-                    width: 90px;
-                    background-color: $blue;
-                    color: white;
-                    text-align: center;
-                }
-
-                li > a:hover {
-                    background-color: #337ab7;
-                }
-            }
-        }
-
-        nav:after {
-            content: '.';
-            display: block;
-            height: 0px;
-            visibility: hidden;
-            clear: both;
-        }
+    li > a {
+      color : $red;
     }
+
+    li.active>a, li.active>a:focus, li.active>a:hover {
+      transition: background-color 0.3s, color 0.3s;
+      color: white;
+      background-color: $red;
+    }
+
+    label {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      width: 50px;
+      font-weight: 200;
+    }
+
+    h2 {
+      margin-top: 50px;
+      font-size: 2em;
+      border-bottom: 1px dotted #aaa;
+    }
+
+    table {
+      width: 470px;
+
+      thead > tr > th {
+        background-color: #1f7f5c;
+      }
+
+      tbody > tr.seen {
+        background-color: $grey;
+      }
+
+      tbody > tr.hit {
+        background-color: $yellow;
+      }
+
+      td {
+        border: 0px;
+      }
+    }
+
+    table.ucf > thead > tr > th {
+      background-color: #695D8C;
+    }
+  }
+
+  .timetag {
+    text-align: center;
+    width: 970px;
+
+    .result {
+      margin: 20px auto;
+      width: 970px;
+
+    }
+  }
+
+  .dataset {
+    /* background-color: white; */
+
+    nav {
+      ul.pager {
+        text-align: right;
+        width: 252px;
+        float: right;
+        margin:0;
+
+        li > input {
+          width: 50px;
+          height: 30px;
+        }
+
+        li > label {
+          display: inline-block;
+          height: 30px;
+          line-height: 30px;
+          width: 40px;
+          font-weight: 200;
+        }
+
+        li > a {
+          border-radius: 0px;
+          border: 0px;
+          width: 90px;
+          background-color: $blue;
+          color: white;
+          text-align: center;
+        }
+
+        li > a:hover {
+          background-color: #337ab7;
+        }
+      }
+    }
+
+    nav:after {
+      content: '.';
+      display: block;
+      height: 0px;
+      visibility: hidden;
+      clear: both;
+    }
+  }
 }
 
 /* Animations: */
 @-webkit-keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
 
-    100% {
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fade-out {
-    0% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
 
-    100% {
-        opacity: 0;
-    }
+  100% {
+    opacity: 0;
+  }
 }
 
 @-webkit-keyframes pop-in {
-    0% {
-        opacity: 0;
-        transform: scale(0.7);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
 
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @-webkit-keyframes show-icon {
-    0% {
-        opacity: 0;
-        transform: rotateZ(-40deg);
-    }
-    100% {
-        opacity: 1;
-        transform: rotateZ(0);
-    }
+  0% {
+    opacity: 0;
+    transform: rotateZ(-40deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateZ(0);
+  }
 }
