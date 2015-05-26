@@ -12,7 +12,6 @@ function log(l) {
   });
 }
 
-
 function sortByRate(playList) {
   var playListCopy = JSON.parse(JSON.stringify(playList));
   return playListCopy.sort(function(a, b) {
@@ -107,11 +106,11 @@ var DatasetView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("rendered");
+    // console.log("rendered");
     // 重新填充数据
     this.$('table').html('');
     var templateData = this.makeTemplateData();
-    console.log(templateData);
+    // console.log(templateData);
     this.$('table').append(this.template(templateData));
     // 显示一共有多少页数据
     this.$pageNum.html("/" + Math.ceil(this.model.size() / this.maxItemNum));
@@ -286,7 +285,6 @@ var RecResultView = Backbone.View.extend({
 
   makeTemplateData: function() {
     var data = this.model.toJSON();
-    log(sortByRate(data));
     // [eID, contentID, className, startTime, ...]
     var headers = _.keys(data[0]);
     var templateData = {
@@ -297,7 +295,7 @@ var RecResultView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("Render RecResultView");
+    // console.log("Render RecResultView");
     this.$('table').html('');
     var templateData = this.makeTemplateData();
     this.$('table').append(this.template(templateData));
@@ -381,10 +379,10 @@ var RecTestView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("Render RecTestView");
+    // console.log("Render RecTestView");
     this.$('table').html('');
     var templateData = this.makeTemplateData();
-    console.log(templateData);
+    // console.log(templateData);
     this.$('table').append(this.template(templateData));
     // 显示一共有多少页数据
     this.$pageNum.html("/" + Math.ceil(this.model.size() / this.maxItemNum));
@@ -410,10 +408,7 @@ var ComparisonView = Backbone.View.extend({
     this.ucfAfterModel = new DataList();
 
     // 保存测试集中用户观看的列表
-    this.icfTestBeforeModel = new TestEntry();
-    this.icfTestAfterModel = new TestEntry();
-    this.ucfTestBeforeModel = new TestEntry();
-    this.ucfTestAfterModel = new TestEntry();
+    this.resetModel();
 
     this.icfRecBeforeView = new RecResultView({el:'.icf-rec-list-before', model:this.icfBeforeModel});
     this.icfRecAfterView = new RecResultView({el:'.icf-rec-list-after', model:this.icfAfterModel});
@@ -433,6 +428,20 @@ var ComparisonView = Backbone.View.extend({
     'click #query-comparison': 'render',
     'keypress #userid-comparison': 'render',
     'click .nav.nav-pills': 'naviRecResultClass',
+  },
+
+  resetModel: function() {
+    if (this.currentType === 'class') {
+      this.icfTestBeforeModel = new TestClasses();
+      this.icfTestAfterModel = new TestClasses();
+      this.ucfTestBeforeModel = new TestClasses();
+      this.ucfTestAfterModel = new TestClasses();
+    } else if (this.currentType === 'video') {
+      this.icfTestBeforeModel = new TestVideos();
+      this.icfTestAfterModel = new TestVideos();
+      this.ucfTestBeforeModel = new TestVideos();
+      this.ucfTestAfterModel = new TestVideos();
+    }
   },
 
   loadJsonSuccess: function() {
@@ -549,6 +558,7 @@ var ComparisonView = Backbone.View.extend({
     if (!this.loadJsonSuccess()) {
       return;
     }
+    this.resetModel();
     var finalIcfBeforeModel, finalIcfAfterModel, finalUcfBeforeModel, finalUcfAfterModel;
     var userModel = this.loadUserModel();
     var userIcfBefore = userModel.userIcfBefore;
@@ -570,6 +580,8 @@ var ComparisonView = Backbone.View.extend({
     }
 
     this.icfTestBeforeModel.reset(finalIcfBeforeModel);
+    // console.log(this.icfTestBeforeModel);
+    this.icfTestBeforeModel.findAndSetHit(['V1511011100036', 'V1511011100048']);
     this.icfTestAfterModel.reset(finalIcfAfterModel);
     this.ucfTestBeforeModel.reset(finalUcfBeforeModel);
     this.ucfTestAfterModel.reset(finalUcfAfterModel);

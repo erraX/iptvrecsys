@@ -12,3 +12,54 @@ var DataList = Backbone.Collection.extend({
 var TestEntry = Backbone.Collection.extend({
   model: app.DataEntry,
 });
+
+var TestClasses = Backbone.Collection.extend({
+  model: app.TestClassEntry,
+
+  getHitNum: function() {
+    return this.where({hit: true}).length;
+  },
+
+  getTotal: function() {
+    return this.length;
+  },
+
+  getUnhitNum: function() {
+    return this.where({hit: false}).length;
+  },
+
+  findAndSetHit: function(viewedList) {
+    _.each(this.model, function(element) {
+      if (_.contains(viewedList, element.get('videoClass'))) {
+        element.setHit();
+      }
+    });
+  },
+});
+
+var TestVideos = Backbone.Collection.extend({
+  model: app.TestVideoEntry,
+
+  getHitNum: function() {
+    return this.where({hit: true}).length;
+  },
+
+  getTotal: function() {
+    return this.length;
+  },
+
+  getUnhitNum: function() {
+    return this.where({hit: false}).length;
+  },
+
+  findAndSetHit: function(viewedList) {
+    console.log(viewedList);
+    console.log(this.models);
+    _.each(this.model, function(element) {
+      console.log(element);
+      if (_.contains(viewedList, element.get('videoID'))) {
+        element.setHit();
+      }
+    });
+  },
+});

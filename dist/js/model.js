@@ -2,14 +2,39 @@
 
 var app = app || {};
 
-/* Recommend result: Test entry(class):
-User1:
-{''}
-
-User2:
-
-*/
 app.DataEntry = Backbone.Model.extend();
+
+app.TestClassEntry = Backbone.Model.extend({
+  default: {
+    videoID: '',
+    videoName: '',
+    videoClass: '',
+    Rate: '',
+    hit: false
+  },
+
+  setHit: function() {
+    this.set('hit', true);
+  }
+});
+
+app.TestVideoEntry = Backbone.Model.extend({
+  default: {
+    videoClass: '',
+    Rate: '',
+    hit: false
+  },
+
+  setHit: function() {
+    this.set('hit', true);
+  }
+});
+
+app.kParam = Backbone.Model.extend({
+  default: {
+    k: 5
+  }
+});
 
 app.Pager = Backbone.Model.extend({
   default: {

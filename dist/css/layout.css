@@ -133,7 +133,7 @@ body {
   text-align: center;
 }
 .container .comparison .nav > li > a:focus, .container .comparison .nav > li > a:hover {
-  background-color: #d9534f;
+  background-color: #1f7f5c;
 }
 .container .comparison .nav-pills {
   width: 248px;
@@ -161,7 +161,7 @@ body {
   border-radius: 0px;
   border: 0px;
   width: 90px;
-  background-color: #d9534f;
+  background-color: #1f7f5c;
   color: white;
   text-align: center;
 }
