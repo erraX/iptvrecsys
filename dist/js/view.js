@@ -313,7 +313,7 @@ var RecTestView = Backbone.View.extend({
     this.$pageInput = this.$('.pager input');
     this.$pageInput.val(this.currentPage.get("page"));
     this.maxItemNum = 10;
-    this.listenTo(this.model, 'reset', this.render);
+    this.listenTo(this.model, 'all', this.render);
     this.listenTo(this.currentPage, 'change:page', this.renderWithoutPager);
   },
 
@@ -408,7 +408,10 @@ var ComparisonView = Backbone.View.extend({
     this.ucfAfterModel = new DataList();
 
     // 保存测试集中用户观看的列表
-    this.resetModel();
+    this.icfTestBeforeModel = new TestEntry();
+    this.icfTestAfterModel = new TestEntry();
+    this.ucfTestBeforeModel = new TestEntry();
+    this.ucfTestAfterModel = new TestEntry();
 
     this.icfRecBeforeView = new RecResultView({el:'.icf-rec-list-before', model:this.icfBeforeModel});
     this.icfRecAfterView = new RecResultView({el:'.icf-rec-list-after', model:this.icfAfterModel});
@@ -430,20 +433,6 @@ var ComparisonView = Backbone.View.extend({
     'click .nav.nav-pills': 'naviRecResultClass',
   },
 
-  resetModel: function() {
-    if (this.currentType === 'class') {
-      this.icfTestBeforeModel = new TestClasses();
-      this.icfTestAfterModel = new TestClasses();
-      this.ucfTestBeforeModel = new TestClasses();
-      this.ucfTestAfterModel = new TestClasses();
-    } else if (this.currentType === 'video') {
-      this.icfTestBeforeModel = new TestVideos();
-      this.icfTestAfterModel = new TestVideos();
-      this.ucfTestBeforeModel = new TestVideos();
-      this.ucfTestAfterModel = new TestVideos();
-    }
-  },
-
   loadJsonSuccess: function() {
     return this.recResult || this.testPlay;
   },
@@ -456,6 +445,7 @@ var ComparisonView = Backbone.View.extend({
     this.currentUserID = this.$inputUser.val();
     var userID = this.currentUserID;
     var test = this.testPlay[userID];
+
     if (this.currentType === 'class') {
       userIcfBefore = this.recResult.recIcfClassNotag[userID];
       userIcfAfter = this.recResult.recIcfClass[userID];
@@ -554,37 +544,67 @@ var ComparisonView = Backbone.View.extend({
     return testCopy;
   },
 
+  // Remove keys from test just for class
+  filterTest: function(test) {
+    var result = [];
+    var uniqKeys = [];
+    _.each(test, function(e) {
+      if (!_.contains(uniqKeys, e.videoClass)) {
+        result.push({'videoClass': e.videoClass});
+        uniqKeys.push(e.videoClass);
+      }
+    });
+    console.log(result);
+    return result;
+  },
+
+  generateRecOption: function(recModel, key) {
+    var result = {};
+    _.each(recModel, function(e) {
+      result[e[key]] = e.Rate;
+    });
+    console.log(result);
+    return result;
+  },
+
   render: function() {
     if (!this.loadJsonSuccess()) {
       return;
     }
-    this.resetModel();
-    var finalIcfBeforeModel, finalIcfAfterModel, finalUcfBeforeModel, finalUcfAfterModel;
     var userModel = this.loadUserModel();
     var userIcfBefore = userModel.userIcfBefore;
     var userIcfAfter = userModel.userIcfAfter;
     var userUcfBefore = userModel.userUcfBefore;
     var userUcfAfter = userModel.userUcfAfter;
     var test = userModel.test;
-
-    if (this.currentType === 'video') {
-      finalIcfBeforeModel = this.mergeRecVideoToTest(userIcfBefore, test);
-      finalIcfAfterModel = this.mergeRecVideoToTest(userIcfAfter, test);
-      finalUcfBeforeModel = this.mergeRecVideoToTest(userUcfBefore, test);
-      finalUcfAfterModel = this.mergeRecVideoToTest(userUcfAfter, test);
-    } else {
-      finalIcfBeforeModel = this.mergeRecClassToTest(userIcfBefore, test);
-      finalIcfAfterModel = this.mergeRecClassToTest(userIcfAfter, test);
-      finalUcfBeforeModel = this.mergeRecClassToTest(userUcfBefore, test);
-      finalUcfAfterModel = this.mergeRecClassToTest(userUcfAfter, test);
+    if (this.currentType === 'class') {
+      test = this.filterTest(test);
     }
 
-    this.icfTestBeforeModel.reset(finalIcfBeforeModel);
-    // console.log(this.icfTestBeforeModel);
-    this.icfTestBeforeModel.findAndSetHit(['V1511011100036', 'V1511011100048']);
-    this.icfTestAfterModel.reset(finalIcfAfterModel);
-    this.ucfTestBeforeModel.reset(finalUcfBeforeModel);
-    this.ucfTestAfterModel.reset(finalUcfAfterModel);
+    this.icfTestBeforeModel.reset(test);
+    this.icfTestAfterModel.reset(test);
+    this.ucfTestBeforeModel.reset(test);
+    this.ucfTestAfterModel.reset(test);
+
+    if (this.currentType === 'video') {
+      this.icfTestBeforeModel.findAndSetVideoHit(this.generateRecOption(userIcfBefore, 'videoID'));
+      this.ucfTestBeforeModel.findAndSetVideoHit(this.generateRecOption(userUcfBefore, 'videoID'));
+      this.icfTestAfterModel.findAndSetVideoHit(this.generateRecOption(userIcfAfter, 'videoID'));
+      this.ucfTestAfterModel.findAndSetVideoHit(this.generateRecOption(userUcfAfter, 'videoID'));
+      this.icfTestBeforeModel.sort();
+      this.ucfTestBeforeModel.sort();
+      this.icfTestAfterModel.sort();
+      this.ucfTestAfterModel.sort();
+    } else if (this.currentType === 'class') {
+      this.icfTestBeforeModel.findAndSetClassHit(this.generateRecOption(userIcfBefore, 'videoClass'));
+      this.ucfTestBeforeModel.findAndSetClassHit(this.generateRecOption(userUcfBefore, 'videoClass'));
+      this.icfTestAfterModel.findAndSetClassHit(this.generateRecOption(userIcfAfter, 'videoClass'));
+      this.ucfTestAfterModel.findAndSetClassHit(this.generateRecOption(userUcfAfter, 'videoClass'));
+      this.icfTestBeforeModel.sort();
+      this.ucfTestBeforeModel.sort();
+      this.icfTestAfterModel.sort();
+      this.ucfTestAfterModel.sort();
+    }
 
     this.icfBeforeModel.reset(userIcfBefore);
     this.icfAfterModel.reset(userIcfAfter);

@@ -2,32 +2,20 @@
 
 var app = app || {};
 
-app.DataEntry = Backbone.Model.extend();
-
-app.TestClassEntry = Backbone.Model.extend({
+app.DataEntry = Backbone.Model.extend({
   default: {
-    videoID: '',
-    videoName: '',
-    videoClass: '',
-    Rate: '',
+    Rate: '0',
     hit: false
   },
 
   setHit: function() {
     this.set('hit', true);
-  }
-});
-
-app.TestVideoEntry = Backbone.Model.extend({
-  default: {
-    videoClass: '',
-    Rate: '',
-    hit: false
   },
 
-  setHit: function() {
-    this.set('hit', true);
-  }
+  addDefault: function() {
+    this.set('Rate', 0);
+    this.set('hit', false);
+  },
 });
 
 app.kParam = Backbone.Model.extend({
