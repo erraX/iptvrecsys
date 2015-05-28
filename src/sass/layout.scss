@@ -1,8 +1,19 @@
-$blue: #2489c5;
+@import 'slider';
+@import 'animation';
+
+$blue: #2CA4BF;
 $yellow: #F8E71C;
 $grey: #D8D8D8;
 $red: #d9534f;
-$green: #1f7f5c;
+$green: #7CC699;
+$headColor: #2CA4BF;
+$hitColor: #F24B6A;
+$compareNavColor: #2CA4BF;
+$compareNavColorHover: #258AA1;
+
+@mixin navTransition {
+  transition: background-color 0.3s, color 0.3s;
+}
 
 body {
   background-color: #ebe7df;
@@ -13,36 +24,80 @@ body {
   width: 1000px;
   margin: 0 auto;
 
-  .nav>li>a:focus, .nav>li>a:hover {
-    transition: background-color 0.3s, color 0.3s;
-    background-color: $blue;
-    color: white;
-  }
 
   .nav-pills {
     width: 492px;
     margin: 0 auto 20px;
     border: 3px solid #ddd8ce;
 
+    li>a:focus, li>a:hover {
+      @include navTransition;
+      color: #FFF;
+      background-color: $blue;
+    }
+
     li {
-      height: 30px;
       line-height: 10px;
+      height: 30px;
       width: 120px;
       text-align: center;
     }
 
     li > a {
-      border-radius: 0px;
       height: 30px;
+      border-radius: 0px;
     }
 
     li.active>a, li.active>a:focus, li.active>a:hover {
-      transition: background-color 0.3s, color 0.3s;
+      @include navTransition;
       color: white;
       background-color: $blue;
     }
-
   }
+
+  nav {
+    ul.pager {
+      text-align: right;
+      width: 252px;
+      float: right;
+      margin:0;
+
+      li > input {
+        width: 50px;
+        height: 30px;
+      }
+
+      li > label {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        width: 40px;
+        font-weight: 200;
+      }
+
+      li > a {
+        border-radius: 0px;
+        border: 0px;
+        width: 90px;
+        background-color: $blue;
+        color: white;
+        text-align: center;
+      }
+
+      li > a:hover {
+        background-color: $compareNavColorHover;
+      }
+    }
+  }
+
+  nav:after {
+    content: '.';
+    display: block;
+    height: 0px;
+    visibility: hidden;
+    clear: both;
+  }
+
   .header {
     text-align: center;
     padding: 100px 0;
@@ -99,13 +154,10 @@ body {
     color: #000;
 
     h1 {
-      /* text-transform: uppercase; */
       margin-bottom: 50px;
       height: 60px;
       line-height: 60px;
       text-align: center;
-      font-size: 3em;
-      font-weight: 400;
     }
 
     h2 {
@@ -162,59 +214,34 @@ body {
 
   .comparison {
     text-align: center;
-    
-    .nav>li>a:focus, .nav>li>a:hover {
-      background-color: $green;
+
+    h4 {
+      font-size: 2em;
     }
+    
 
     .nav-pills {
       width: 248px;
       margin-top: 30px;
+
+      li>a:focus, li>a:hover {
+        background-color: $red;
+      }
     }
 
     nav {
       ul.pager {
         width: 470px;
         margin: 0 auto;
-
-        li {
-          padding-left: 5px;
-        }
-
-        li > input {
-          width: 70px;
-          height: 30px;
-        }
-
-        li > label {
-          display: inline-block;
-          height: 30px;
-          line-height: 30px;
-          width: 40px;
-          font-weight: 200;
-        }
-
-        li > a {
-          border-radius: 0px;
-          border: 0px;
-          width: 90px;
-          background-color: $green;
-          color: white;
-          text-align: center;
-        }
-
-        li > a:hover {
-          background-color: #ac2925;
-        }
       }
+
+    li {
+      padding-left: 5px;
     }
 
-    nav:after {
-      content: '.';
-      display: block;
-      height: 0px;
-      visibility: hidden;
-      clear: both;
+      li > input {
+        width: 50px;
+      }
     }
 
     li > a {
@@ -245,18 +272,16 @@ body {
       width: 470px;
 
       thead > tr > th {
-        background-color: #1f7f5c;
-      }
-
-      tbody > tr.seen {
-        background-color: $grey;
+        background-color: $headColor;
       }
 
       tbody > tr.hit {
-        background-color: $yellow;
+        background-color: $hitColor;
+        color: white;
       }
 
       td {
+        /* border: 1px solid #C1C1C1; */
         border: 0px;
       }
     }
@@ -279,92 +304,5 @@ body {
 
   .dataset {
     /* background-color: white; */
-
-    nav {
-      ul.pager {
-        text-align: right;
-        width: 252px;
-        float: right;
-        margin:0;
-
-        li > input {
-          width: 50px;
-          height: 30px;
-        }
-
-        li > label {
-          display: inline-block;
-          height: 30px;
-          line-height: 30px;
-          width: 40px;
-          font-weight: 200;
-        }
-
-        li > a {
-          border-radius: 0px;
-          border: 0px;
-          width: 90px;
-          background-color: $blue;
-          color: white;
-          text-align: center;
-        }
-
-        li > a:hover {
-          background-color: #337ab7;
-        }
-      }
-    }
-
-    nav:after {
-      content: '.';
-      display: block;
-      height: 0px;
-      visibility: hidden;
-      clear: both;
-    }
-  }
-}
-
-/* Animations: */
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes pop-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@-webkit-keyframes show-icon {
-  0% {
-    opacity: 0;
-    transform: rotateZ(-40deg);
-  }
-  100% {
-    opacity: 1;
-    transform: rotateZ(0);
   }
 }

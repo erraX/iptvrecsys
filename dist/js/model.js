@@ -3,9 +3,8 @@
 var app = app || {};
 
 app.DataEntry = Backbone.Model.extend({
-  default: {
+  defaults: {
     Rate: '0',
-    hit: false
   },
 
   setHit: function() {
@@ -19,13 +18,13 @@ app.DataEntry = Backbone.Model.extend({
 });
 
 app.kParam = Backbone.Model.extend({
-  default: {
+  defaults: {
     k: 5
   }
 });
 
 app.Pager = Backbone.Model.extend({
-  default: {
+  defaults: {
     page: 1,
     max: 1
   },
