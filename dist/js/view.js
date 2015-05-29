@@ -194,106 +194,109 @@ var DatasetView = Backbone.View.extend({
   }
 });
 
-var EvaluationView = Backbone.View.extend({
-  el: '.content.evaluation',
-
-  initialize: function() {
-    this.$chart = this.$('.evalChart');
-    this.highChart();
+var EvaluationChart = Backbone.View.extend({
+  initialize: function(opts) {
+    this.data = opts.data;
+    this.render();
   },
-
-  // getCharts: function() {
-  //
-  // },
 
   highChart: function() {
     var axisLabelStyle = {color: "#000", fontSize: '1.2em'};
     var axisTitleStyle = {color: "#000", fontSize:'1.2em'};
     var legendStyle = {color: "#000", fontSize:'1em', fontWeight: '200'};
-    this.$chart.highcharts({
+    this.$el.highcharts({
       chart: { type: 'column', backgroundColor: '#ebe7df',style: {fontFamily: 'Coda', fontWeight: 200}},
-      title: { text: 'Genre', style: {fontSize:'3em'} },
+      title: { text: this.data.title, style: {fontSize:'3em'} },
       credits: { enabled: false },
       colors: [ '#FF8C78', '#8CD6B5', '#FFD661', '#FFF2B5' ],
+      // colors: [ '#FF7359', '#F2DAF2', '#73C3E5', '#FFCC66' ],
       exporting: { enabled: false },
-      xAxis: { categories: [ '1', '2', '3', '4', '5'], title: {text: 'K', style: axisTitleStyle}, labels: {style: axisLabelStyle}, crosshair: true },
-      yAxis: { min: 0, max: 1, labels: {style: axisLabelStyle}, title: {offset: 30,,text: 'Precision', style: axisTitleStyle} },
+      xAxis: { categories: [ '1', '2', '3', '4', '5'], title: {margin: 20, text: 'K', style: axisTitleStyle}, labels: {style: axisLabelStyle}, crosshair: true },
+      yAxis: { min: 0, max: this.data.max, labels: {style: axisLabelStyle}, title: {margin: 20, text: this.data.type, style: axisTitleStyle} },
       tooltip: { enabled: true, pointFormat: '<span style="color:{series.color}">{series.name}</span>: {point.y}',},
-      plotOptions: { column: { pointPadding: 0, borderWidth: 0 } },
-      legend: { layout: 'horizontal', align: 'right', verticalAlign: 'bottom', itemStyle: legendStyle},
+      plotOptions: { column: { groupPadding: 0.1, pointPadding: 0, borderWidth: 0, pointWidth: 33 } },
+      legend: { layout: 'horizontal', align: 'right', verticalAlign: 'top', itemStyle: legendStyle},
       series: [{
           name: 'ATGUI_UCF',
-          data: [0.89, 0.629, 0.5, 0.426, 0.371],
+          data: this.data.atguiUCF,
           dataLabels: {
               enabled: true,
+              allowOverlap: true,
               rotation: 0,
               color: '#000',
               align: 'center',
-              format: '{point.y:.2f}',
+              // format: '{point.y:.3f}',
               y: 0, // 10 pixels down from the top
               style: {
                   fontSize: '12px',
                   fontFamily: 'Coda',
-                  fontWeight: 200
+                  fontWeight: 200,
               }
           }
       }, {
-          name: 'ATGUI_ICF',
-          data: [0.22, 0.18, 0.183, 0.177, 0.168],
+          name: 'UCF',
+          data: this.data.UCF,
             dataLabels: {
               enabled: true,
+              allowOverlap: true,
               rotation: 0,
               color: '#000',
               align: 'center',
-              format: '{point.y:.2f}',
+              // format: '{point.y:.3f}',
               y: 0, // 10 pixels down from the top
               style: {
                   fontSize: '12px',
                   fontFamily: 'Coda',
-                  fontWeight: 200
+                  fontWeight: 200,
+                  textShadow: 'none'
               }
           }
 
       }, {
-          name: 'UCF',
-          data: [0.38, 0.315, 0.28, 0.274, 0.248],
+          name: 'ATGUI_ICF',
+          data: this.data.atguiICF,
             dataLabels: {
               enabled: true,
+              allowOverlap: true,
               rotation: 0,
               color: '#000',
               align: 'center',
-              format: '{point.y:.2f}', // one decimal
+              // format: '{point.y:.3f}',
               y: 0, // 10 pixels down from the top
               style: {
                   fontSize: '12px',
                   fontFamily: 'Coda',
-                  fontWeight: 200
+                  fontWeight: 200,
+                  textShadow: 'none'
               }
           }
 
       }, {
           name: 'ICF',
-          data: [0.09, 0.125, 0.13, 0.145, 0.144],
+          data: this.data.ICF,
             dataLabels: {
               enabled: true,
+              allowOverlap: true,
               rotation: 0,
               color: '#000',
               align: 'center',
-              format: '{point.y:.2f}', // one decimal
+              // format: '{point.y:.3f}',
               y: 0, // 10 pixels down from the top
               style: {
                   fontSize: '12px',
                   fontFamily: 'Coda',
-                  fontWeight: 200
+                  fontWeight: 200,
+                  textShadow: 'none'
               }
           }
 
       }]
-    }); 
+    });
   },
 
-  // render: function() {
-  // },
+  render: function() {
+    this.highChart();
+  },
 });
 
 var TimetagView = Backbone.View.extend({
@@ -707,5 +710,28 @@ var ComparisonView = Backbone.View.extend({
     this.icfAfterModel.reset(userIcfAfter);
     this.ucfBeforeModel.reset(userUcfBefore);
     this.ucfAfterModel.reset(userUcfAfter);
+  }
+});
+
+var EvaluationView = Backbone.View.extend({
+  el: '.content.evaluation',
+
+  initialize: function() {
+    this.fetch();
+  },
+  
+  fetch: function() {
+    $.ajax({
+      context: this,
+      type: 'get',
+      url: 'dataset/evaluation.json',
+      success: function(data) {
+        this.evalData = data;
+        this.vPreChart = new EvaluationChart({el:'.videoPrecision', data: this.evalData.videoPrecision});
+        this.vRecallChart = new EvaluationChart({el:'.videoRecall', data: this.evalData.videoRecall});
+        this.cPreChart = new EvaluationChart({el:'.classPrecision', data: this.evalData.classPrecision});
+        this.cRecallChart = new EvaluationChart({el:'.classRecall', data: this.evalData.classRecall});
+      }
+    });
   }
 });
