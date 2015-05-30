@@ -1,29 +1,66 @@
+// scss-lint:disable PropertySortOrder, SingleLinePerSelector, Comment, ColorVariable, DeclarationOrder, VendorPrefix, QualifyingElement
+/*----TITLE: Main screen styles | AUTHOR: NIMINJIE | UPDATED: 05/30/2015 by NIMINJIE*/
 @import 'slider';
 @import 'animation';
 
-$blue: #2CA4BF;
-$yellow: #F8E71C;
-$grey: #D8D8D8;
+$blue: #2ca4bf;
+$yellow: #f8e71c;
+$grey: #d8d8d8;
 $red: #d9534f;
-$green: #7CC699;
-$headColor: #2CA4BF;
-$hitColor: #F24B6A;
-$compareNavColor: #2CA4BF;
-$compareNavColorHover: #258AA1;
+$green: #7cc699;
+$head-color: #2ca4bf;
+$hit-color: #f24b6a;
+$compare-nav-color: #2ca4bf;
+$compare-nav-color-hover: #258aa1;
 
-@mixin navTransition {
-  transition: background-color 0.3s, color 0.3s;
+@mixin nav-transition {
+  transition: background-color .3s, color .3s;
 }
+
+/*---RESET---*/ 
+// html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {    
+//   border: 0;
+//   margin: 0;
+//   padding: 0;
+//   outline: 0;
+//   font-weight: inherit;
+//   font-style: inherit;
+//   font-size: 100%;
+//   font-family: 'Coda', cursive;
+//   vertical-align: baseline;
+// }
 
 body {
-  background-color: #ebe7df;
   font-family: 'Coda', cursive;
+  background-color: #ebe7df;
 }
+
+/* =GLOBAL
+----------------------*/
+
+
+/* =HEADER
+----------------------*/
+
+
+/* =NAV
+----------------------*/
+
+
+/* =CONTENT
+----------------------*/
+
+
+/* =SIDEBAR
+----------------------*/
+
+
+/* =FOOTER
+----------------------*/
 
 .container {
   width: 1000px;
   margin: 0 auto;
-
 
   .nav-pills {
     width: 492px;
@@ -31,26 +68,26 @@ body {
     border: 3px solid #ddd8ce;
 
     li>a:focus, li>a:hover {
-      @include navTransition;
-      color: #FFF;
+      @include nav-transition;
+      color: #fff;
       background-color: $blue;
     }
 
     li {
+      a {
+        height: 30px;
+        border-radius: 0;
+      }
+
       line-height: 10px;
       height: 30px;
       width: 120px;
       text-align: center;
     }
 
-    li > a {
-      height: 30px;
-      border-radius: 0px;
-    }
-
     li.active>a, li.active>a:focus, li.active>a:hover {
-      @include navTransition;
-      color: white;
+      @include nav-transition;
+      color: #fff;
       background-color: $blue;
     }
   }
@@ -60,7 +97,7 @@ body {
       text-align: right;
       width: 252px;
       float: right;
-      margin:0;
+      margin: 0;
 
       li > input {
         width: 50px;
@@ -76,16 +113,16 @@ body {
       }
 
       li > a {
-        border-radius: 0px;
-        border: 0px;
+        border-radius: 0;
+        border: 0;
         width: 90px;
         background-color: $blue;
-        color: white;
+        color: #fff;
         text-align: center;
       }
 
       li > a:hover {
-        background-color: $compareNavColorHover;
+        background-color: $compare-nav-color-hover;
       }
     }
   }
@@ -93,7 +130,7 @@ body {
   nav:after {
     content: '.';
     display: block;
-    height: 0px;
+    height: 0;
     visibility: hidden;
     clear: both;
   }
@@ -106,7 +143,7 @@ body {
 
     .icon {
       opacity: 0;
-      -webkit-animation: show-icon 0.5s forwards cubic-bezier(.64,1.87,.64,.64);
+      -webkit-animation: show-icon .5s forwards cubic-bezier(.64, 1.87, .64, .64);
     }
 
     .icon:nth-child(5) {
@@ -131,20 +168,20 @@ body {
       opacity: 0;
       margin: 30px;
       font-size: 1.5em;
-      -webkit-animation: pop-in 0.4s 0.6s forwards cubic-bezier(.64,1.87,.64,.64);
+      -webkit-animation: pop-in .4s .6s forwards cubic-bezier(.64, 1.87, .64, .64);
     }
 
     h1 {
       opacity: 0;
       font-size: 7em;
-      -webkit-animation: pop-in 0.4s forwards cubic-bezier(.64,1.87,.64,.64);
+      -webkit-animation: pop-in .4s forwards cubic-bezier(.64, 1.87, .64, .64);
     }
 
     h2 {
       opacity: 0;
       font-size: 2em;
       font-weight: 200;
-      -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(.64,1.87,.64,.64);
+      -webkit-animation: pop-in .4s .4s forwards cubic-bezier(.64, 1.87, .64, .64);
     }
   }
 
@@ -176,7 +213,7 @@ body {
       font-weight: 200;
     }
 
-    .query-input{
+    .query-input {
       height: 30px;
     }
 
@@ -189,25 +226,25 @@ body {
 
     table {
       width: 970px;
-      margin: 0 auto 10px auto;
+      margin: 0 auto 10px;
       border: 3px solid #ddd8ce;
       text-align: center;
 
       td {
-        border: 1px solid #C1C1C1;
+        border: 1px solid #c1c1c1;
         height: 30px;
       }
 
       thead > tr > th {
         background-color: $blue;
-        color: white;
+        color: #fff;
         font-weight: 400;
         height: 30px;
         text-align: center;
       }
 
       tbody > tr {
-        background-color: white;
+        background-color: #fff;
       }
     }
   }
@@ -235,22 +272,22 @@ body {
         margin: 0 auto;
       }
 
-    li {
-      padding-left: 5px;
-    }
+      li {
+        input {
+          width: 50px;
+        }
 
-      li > input {
-        width: 50px;
+        padding-left: 5px;
       }
     }
 
     li > a {
-      color : $red;
+      color: $red;
     }
 
     li.active>a, li.active>a:focus, li.active>a:hover {
-      transition: background-color 0.3s, color 0.3s;
-      color: white;
+      transition: background-color .3s, color .3s;
+      color: #fff;
       background-color: $red;
     }
 
@@ -272,22 +309,22 @@ body {
       width: 470px;
 
       thead > tr > th {
-        background-color: $headColor;
+        background-color: $head-color;
       }
 
       tbody > tr.hit {
-        background-color: $hitColor;
-        color: white;
+        background-color: $hit-color;
+        color: #fff;
       }
 
       td {
         /* border: 1px solid #C1C1C1; */
-        border: 0px;
+        border: 0;
       }
     }
 
     table.ucf > thead > tr > th {
-      background-color: #695D8C;
+      background-color: #695d8c;
     }
   }
 
@@ -303,6 +340,6 @@ body {
   }
 
   .dataset {
-    /* background-color: white; */
+    /* background-color: #fff; */
   }
 }
