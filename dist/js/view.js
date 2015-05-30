@@ -1,4 +1,5 @@
-/*global $,jQuery,_,Backbone */
+/*global $,_,Backbone */
+/*jshint undef: false, unused: false */
 
 /**
  * 改进点：
@@ -7,16 +8,6 @@
  */
 
 var app = app || {};
-// var eventTransfer = _.extend({}, Backbone.Events);
-// eventTransfer.on('tomatoClicked', this.onTomatoClicked, this);
-// eventTransfer.trigger('tomatoClicked', { 'title' : title});
-
-// 打印Array信息
-function log(l) {
-  _.each(l, function(d) {
-    console.log(d);
-  });
-}
 
 function sortByRate(playList) {
   var playListCopy = JSON.parse(JSON.stringify(playList));
@@ -75,6 +66,7 @@ var DatasetView = Backbone.View.extend({
       url: 'dataset/test.json',
       success: function(data) {
         this.test = data;
+        Logger.info("Fetch dataset/test.json successfully!");
       }
     });
     
@@ -84,6 +76,7 @@ var DatasetView = Backbone.View.extend({
       url: 'dataset/user.json',
       success: function(data) {
         this.user = data;
+        Logger.info("Fetch dataset/user.json successfully!");
       }
     });
 
@@ -93,6 +86,7 @@ var DatasetView = Backbone.View.extend({
       url: 'dataset/video.json',
       success: function(data) {
         this.video = data;
+        Logger.info("Fetch dataset/video.json successfully!");
       }
     });
   },
@@ -111,7 +105,7 @@ var DatasetView = Backbone.View.extend({
   },
 
   render: function() {
-    // console.log("rendered");
+    Logger.info("Render DatasetView");
     // 重新填充数据
     this.$('table').html('');
     var templateData = this.makeTemplateData();
@@ -177,18 +171,18 @@ var DatasetView = Backbone.View.extend({
     var $target = $(event.target);
     switch($target.html().toLowerCase()) {
       case 'go':
-        console.log('click go');
+        // console.log('click go');
         if (inputPageValue <= this.currentPage.get('max') && inputPageValue >= 1) {
           this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
         }
       break;
       case 'previous':
         this.currentPage.previous();
-        console.log('click previous' + this.currentPage.get('page'));
+        // console.log('click previous' + this.currentPage.get('page'));
       break;
       case 'next':
         this.currentPage.next();
-        console.log('click next' + this.currentPage.get('page'));
+        // console.log('click next' + this.currentPage.get('page'));
       break;
     }
   }
@@ -441,7 +435,7 @@ var RecTestView = Backbone.View.extend({
     this.$pageInput = this.$('.pager input');
     this.$pageInput.val(this.currentPage.get("page"));
     this.maxItemNum = 10;
-    this.listenTo(this.model, 'all', this.render);
+    this.listenTo(this.model, 'reset', this.render);
     this.listenTo(this.currentPage, 'change:page', this.renderWithoutPager);
   },
 
@@ -507,7 +501,7 @@ var RecTestView = Backbone.View.extend({
   },
 
   render: function() {
-    // console.log("Render RecTestView");
+    Logger.debug('Render RecTestView');
     this.$('table').html('');
     var templateData = this.makeTemplateData();
     // console.log(templateData);
