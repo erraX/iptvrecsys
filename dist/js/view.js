@@ -3,8 +3,7 @@
 
 /**
  * 改进点：
- * 1. 一些View可以继承，比较翻页的表格
- * 2. 展示推荐的结果的时候，可以把推荐结果分开渲染，不要一次render全部
+ * 1. 展示推荐的结果的时候，可以把推荐结果分开渲染，不要一次render全部
  */
 
 var app = app || {};
@@ -16,21 +15,94 @@ function sortByRate(playList) {
   });
 }
 
-// 数据集View
-var DatasetView = Backbone.View.extend({
-  el: '.content.dataset',
-
-  template: _.template($('#dataset-template').html()),
-
+var TablePagerView = Backbone.View.extend({
   initialize: function() {
-    this.model = new DataList();
+    this.model = this.model || new DataList();
     this.currentPage = new app.Pager({'page': 1, 'max': 1});
     this.$pageNum = this.$('.pager li label');
     this.$pageInput = this.$('.pager input');
     this.$pageInput.val(this.currentPage.get("page"));
-
     // 一页最大的条目数
     this.maxItemNum = 15;
+    this.listenTo(this.model, 'reset', this.renderAndReset);
+    this.listenTo(this.currentPage, 'change:page', this.renderWithoutPager);
+  },
+
+  events: {
+    'click nav .pager': 'naviPage',
+    'keypress nav .pager input': 'pageOnEnter',
+  },
+
+  renderWithoutPager: function() {
+    this.render();
+    this.$pageInput.val(this.currentPage.get("page"));
+  },
+
+  renderAndReset: function() {
+    this.render();
+    // 重置当前页数为1
+    // this.currentPage.set('page', 1);
+    this.currentPage.reset();
+    this.$pageInput.val(this.currentPage.get("page"));
+  },
+
+  render: function() {
+    Logger.debug("Test: " + this.$el.attr('class'));
+    // 重新填充数据
+    this.$('table').html('');
+    var templateData = this.makeTemplateData();
+    this.$('table').append(this.template(templateData));
+    // 显示一共有多少页数据
+    this.$pageNum.html("/" + Math.ceil(this.model.size() / this.maxItemNum));
+    // 设置最大页数
+    this.currentPage.set('max', Math.ceil(this.model.size() / this.maxItemNum));
+  },
+
+  pageOnEnter: function(event) {
+    var inputPageValue = this.$pageInput.val();
+    if (event.which !== 13 || !inputPageValue || inputPageValue > this.currentPage.get('max') || inputPageValue < 1) {
+      return;
+    }
+    this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
+  },
+
+  makeTemplateData: function() {
+    var data = this.model.toJSON();
+    // [eID, contentID, className, startTime, ...]
+    var headers = _.keys(data[0]);
+    var templateData = {
+        headers: headers,
+        data: data.slice((this.currentPage.get('page') - 1) * 10, this.currentPage.get('page') * 10)
+    };
+    return templateData;
+  },
+
+  naviPage: function(event) {
+    event.preventDefault();
+    var inputPageValue = this.$pageInput.val();
+    var $target = $(event.target);
+    switch($target.html().toLowerCase()) {
+      case 'go':
+        if (inputPageValue <= this.currentPage.get('max') && inputPageValue >= 1) {
+          this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
+        }
+      break;
+      case 'previous':
+        this.currentPage.previous();
+      break;
+      case 'next':
+        this.currentPage.next();
+      break;
+    }
+  }
+});
+
+// 数据集View
+var DatasetView = TablePagerView.extend({
+  el: '.content.dataset',
+  template: _.template($('#dataset-template').html()),
+  initialize: function() {
+    TablePagerView.prototype.initialize.apply(this, arguments);
     this.train = [];
     this.test = [];
     this.user = [];
@@ -47,16 +119,13 @@ var DatasetView = Backbone.View.extend({
         this.model.reset(data);
       }
     });
-
-    this.listenTo(this.model, 'reset', this.renderAndReset);
-    this.listenTo(this.currentPage, 'change:page', this.renderWithoutPager);
   },
 
-  events: {
-    // 切换数据集标签事件
-    'click .nav.nav-pills': 'switchDataset',
-    'click nav .pager': 'naviPage',
-    'keypress nav .pager input': 'pageOnEnter',
+  events: function() {
+    // 从父元素中继承事件、并添加事件
+    return _.extend({}, TablePagerView.prototype.events, {
+      'click .nav.nav-pills': 'switchDataset',
+    });
   },
 
   fetch: function() {
@@ -91,98 +160,30 @@ var DatasetView = Backbone.View.extend({
     });
   },
 
-  renderWithoutPager: function() {
-    this.render();
-    this.$pageInput.val(this.currentPage.get("page"));
-  },
-
-  renderAndReset: function() {
-    this.render();
-    // 重置当前页数为1
-    // this.currentPage.set('page', 1);
-    this.currentPage.reset();
-    this.$pageInput.val(this.currentPage.get("page"));
-  },
-
-  render: function() {
-    Logger.info("Render DatasetView");
-    // 重新填充数据
-    this.$('table').html('');
-    var templateData = this.makeTemplateData();
-    // console.log(templateData);
-    this.$('table').append(this.template(templateData));
-    // 显示一共有多少页数据
-    this.$pageNum.html("/" + Math.ceil(this.model.size() / this.maxItemNum));
-    // 设置最大页数
-    this.currentPage.set('max', Math.ceil(this.model.size() / this.maxItemNum));
-  },
-
-  pageOnEnter: function(event) {
-    var inputPageValue = this.$pageInput.val();
-    if (event.which !== 13 || !inputPageValue || inputPageValue > this.currentPage.get('max') || inputPageValue < 1) {
-      return;
-    }
-    this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
-  },
-
   switchDataset: function(event) {
     event.preventDefault();
     // 高亮和去除高亮导航
     var $currentTarget = $(event.currentTarget);
     var $target = $(event.target);
+    if ($target.prop("tagName") === "UL") {
+      return;
+    }
     $currentTarget.find('.active').removeClass('active');
     $target.parent('li').addClass('active');
 
     // 重新填充数据
     switch($target.html().toLowerCase()) {
       case "trainset":
-        console.log("Click trianset");
         this.model.reset(this.train);
       break;
       case "testset":
-        console.log("click testset");
         this.model.reset(this.test);
       break;
       case "userinfo":
-        console.log("click userinfo");
         this.model.reset(this.user);
       break;
       case "videoinfo":
-        console.log("click videoinfo");
         this.model.reset(this.video);
-      break;
-    }
-  },
-
-  makeTemplateData: function() {
-    var data = this.model.toJSON();
-    // [eID, contentID, className, startTime, ...]
-    var headers = _.keys(data[0]);
-    var templateData = {
-        headers: headers,
-        data: data.slice((this.currentPage.get('page') - 1) * 10, this.currentPage.get('page') * 10)
-    };
-    return templateData;
-  },
-
-  naviPage: function(event) {
-    event.preventDefault();
-    var inputPageValue = this.$pageInput.val();
-    var $target = $(event.target);
-    switch($target.html().toLowerCase()) {
-      case 'go':
-        // console.log('click go');
-        if (inputPageValue <= this.currentPage.get('max') && inputPageValue >= 1) {
-          this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
-        }
-      break;
-      case 'previous':
-        this.currentPage.previous();
-        // console.log('click previous' + this.currentPage.get('page'));
-      break;
-      case 'next':
-        this.currentPage.next();
-        // console.log('click next' + this.currentPage.get('page'));
       break;
     }
   }
@@ -413,7 +414,6 @@ var RecResultView = Backbone.View.extend({
   },
 
   render: function() {
-    // console.log("Render RecResultView");
     this.$eval.find('.k').html('K: ' + this.k.get('k'));
     this.$eval.find('.hit').html('Hit: ' + this.test.getHitNum());
     this.$eval.find('.precision').html('Precision: ' + (this.test.getHitNum() / this.k.get('k')).toFixed(2));
@@ -425,93 +425,8 @@ var RecResultView = Backbone.View.extend({
   }
 });
 
-var RecTestView = Backbone.View.extend({
+var RecTestView = TablePagerView.extend({
   template: _.template($('#testdata-template').html()),
-  // template: _.template($('#recClass-template').html()),
-
-  initialize: function() {
-    this.currentPage = new app.Pager({'page': 1, 'max': 1});
-    this.$pageNum = this.$('.pager li label');
-    this.$pageInput = this.$('.pager input');
-    this.$pageInput.val(this.currentPage.get("page"));
-    this.maxItemNum = 10;
-    this.listenTo(this.model, 'reset', this.render);
-    this.listenTo(this.currentPage, 'change:page', this.renderWithoutPager);
-  },
-
-  events: {
-    // 切换数据集标签事件
-    'click nav .pager': 'naviPage',
-    'keypress nav .pager input': 'pageOnEnter',
-  },
-
-  makeTemplateData: function() {
-    var data = this.model.toJSON();
-    // [eID, contentID, className, startTime, ...]
-    var headers = _.keys(data[0]);
-    var templateData = {
-        headers: headers,
-        // data: data
-        data: data.slice((this.currentPage.get('page') - 1) * 10, this.currentPage.get('page') * 10)
-    };
-    return templateData;
-  },
-
-  naviPage: function(event) {
-    event.preventDefault();
-    var inputPageValue = this.$pageInput.val();
-    var $target = $(event.target);
-    switch($target.html().toLowerCase()) {
-      case 'go':
-        console.log('click go');
-        if (inputPageValue <= this.currentPage.get('max') && inputPageValue >= 1) {
-          this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
-        }
-      break;
-      case 'previous':
-        this.currentPage.previous();
-        console.log('click previous' + this.currentPage.get('page'));
-      break;
-      case 'next':
-        this.currentPage.next();
-        console.log('click next' + this.currentPage.get('page'));
-      break;
-    }
-  },
-
-  pageOnEnter: function(event) {
-    var inputPageValue = this.$pageInput.val();
-    if (event.which !== 13 || !inputPageValue || inputPageValue > this.currentPage.get('max') || inputPageValue < 1) {
-      return;
-    }
-    this.currentPage.set('page', parseInt(this.$pageInput.val(), 10));
-  },
-
-  renderWithoutPager: function() {
-    this.render();
-    this.$pageInput.val(this.currentPage.get("page"));
-  },
-
-  renderAndReset: function() {
-    this.render();
-    // 重置当前页数为1
-    // this.currentPage.set('page', 1);
-    this.currentPage.reset();
-    this.$pageInput.val(this.currentPage.get("page"));
-  },
-
-  render: function() {
-    Logger.debug('Render RecTestView');
-    this.$('table').html('');
-    var templateData = this.makeTemplateData();
-    // console.log(templateData);
-    this.$('table').append(this.template(templateData));
-    // 显示一共有多少页数据
-    this.$pageNum.html("/" + Math.ceil(this.model.size() / this.maxItemNum));
-    // 设置最大页数
-    this.currentPage.set('max', Math.ceil(this.model.size() / this.maxItemNum));
-    return this;
-  }
 });
 
 var ComparisonView = Backbone.View.extend({
@@ -601,6 +516,9 @@ var ComparisonView = Backbone.View.extend({
     event.preventDefault();
     var $target = $(event.target);
     var $currentTarget = $(event.currentTarget);
+    if ($target.prop("tagName") === "UL") {
+      return;
+    }
     $currentTarget.find('.active').removeClass('active');
     $target.parent('li').addClass('active');
 
@@ -647,7 +565,6 @@ var ComparisonView = Backbone.View.extend({
         uniqKeys.push(e.videoClass);
       }
     });
-    console.log(result);
     return result;
   },
 
@@ -663,7 +580,6 @@ var ComparisonView = Backbone.View.extend({
     if (!this.loadJsonSuccess()) {
       return;
     }
-    console.log("rerendered");
     var userModel = this.loadUserModel();
     var userIcfBefore = userModel.userIcfBefore.slice(0, this.icfBK.get('k'));
     var userIcfAfter = userModel.userIcfAfter.slice(0, this.icfAK.get('k'));

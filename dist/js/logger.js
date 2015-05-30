@@ -31,19 +31,19 @@
       this.message(100, s); 
     }, 
     debug: function (s) { 
-      this.message(logger.LEVEL_DEBUG, s); 
+      this.message(logger.LEVEL_DEBUG, "DEBUG: " + s); 
     }, 
     info: function (s) { 
-      this.message(logger.LEVEL_INFO, s); 
+      this.message(logger.LEVEL_INFO, "INFO: " + s); 
     }, 
     warn: function (s) { 
-      this.message(logger.LEVEL_WARN, s); 
+      this.message(logger.LEVEL_WARN, "WARN: " + s); 
     }, 
     error: function (s) { 
-      this.message(logger.LEVEL_ERROR, s); 
+      this.message(logger.LEVEL_ERROR, "ERROR: " + s); 
     }, 
     fatal: function (s) { 
-      this.message(logger.LEVEL_FATAL, s); 
+      this.message(logger.LEVEL_FATAL, "FATAL: " + s); 
     }, 
     message: function (level, s) { 
       if (level >= this.level) { 
