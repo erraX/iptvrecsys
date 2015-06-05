@@ -38,6 +38,14 @@ $font-coda: 'Coda', cursive;
   -webkit-transition: background-color .3s, color .3s;
 }
 
+@mixin transition($property_1, $property_2:false, $property_3:false, $property_4:false) {
+    -webkit-transition:$property_1, $property_2, $property_3, $property_4;
+       -moz-transition:$property_1, $property_2, $property_3, $property_4;
+        -ms-transition:$property_1, $property_2, $property_3, $property_4;
+         -o-transition:$property_1, $property_2, $property_3, $property_4;
+            transition:$property_1, $property_2, $property_3, $property_4;
+}
+
 /*---RESET---*/ 
 // html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {    
 //   border: 0;
@@ -145,7 +153,7 @@ body {
   }
 }
 
-nav {
+nav.clear-focus {
   ul.pager {
     width: 252px;
     margin: 0;
@@ -176,10 +184,6 @@ nav {
 
         &:hover {
           background-color: $compare-nav-color-hover;
-        }
-
-        &:focus {
-          background-color: none;
         }
       }
     }
@@ -265,6 +269,21 @@ table {
 
   h4 {
     font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 1.3em;
+    padding-left: 10px;
+  }
+
+  .value {
+    font-size: 1.5em;
+  }
+  
+  .slider {
+    width: 300px;
+    margin: 10px auto 30px;
   }
 
   .nav-pills {
@@ -323,6 +342,10 @@ table {
       background-color: $head-color;
     }
 
+    thead > tr > th.rec-header {
+      background-color: #6B8A78;
+    }
+
     tbody > tr.hit {
       background-color: $hit-color;
       color: $white;
@@ -350,7 +373,6 @@ table {
 
 /* =SIDEBAR
 ----------------------*/
-
 
 /* =FOOTER
 ----------------------*/

@@ -203,8 +203,8 @@ var EvaluationChart = Backbone.View.extend({
       chart: { type: 'column', backgroundColor: '#ebe7df',style: {fontFamily: 'Coda', fontWeight: 200}},
       title: { text: this.data.title, style: {fontSize:'3em'} },
       credits: { enabled: false },
-      colors: [ '#FF8C78', '#8CD6B5', '#FFD661', '#FFF2B5' ],
-      // colors: [ '#FF7359', '#F2DAF2', '#73C3E5', '#FFCC66' ],
+      // colors: [ '#FF8C78', '#8CD6B5', '#FFD661', '#FFF2B5' ],
+      colors: [ '#4FC5C7', '#97EC71', '#DBF977', '#33A6EC' ],
       exporting: { enabled: false },
       xAxis: { categories: [ '1', '2', '3', '4', '5'], title: {margin: 20, text: 'K', style: axisTitleStyle}, labels: {style: axisLabelStyle}, crosshair: true },
       yAxis: { min: 0, max: this.data.max, labels: {style: axisLabelStyle}, title: {margin: 20, text: this.data.type, style: axisTitleStyle} },
@@ -300,6 +300,8 @@ var TimetagView = Backbone.View.extend({
   initialize: function() {
     this.$before = this.$('#before');
     this.$after = this.$('#after');
+    this.$final = this.$('#final');
+    this.$pie = this.$('#pie');
     this.$inputUser = this.$('#userid-timetag');
 
     $.ajax({
@@ -308,7 +310,27 @@ var TimetagView = Backbone.View.extend({
       url: 'dataset/timetag.json',
       success: function(data) {
         this.data = data;
-        this.currentUser = '00034C993EDA';
+        this.currentUser = '00034CB01B51';
+        this.render();
+      }
+    });
+
+    $.ajax({
+      context: this,
+      type: 'get',
+      url: 'dataset/timetag_after.json',
+      success: function(data) {
+        this.finalData = data;
+        this.render();
+      }
+    });
+
+    $.ajax({
+      context: this,
+      type: 'get',
+      url: 'dataset/pie.json',
+      success: function(data) {
+        this.pieData = data;
         this.render();
       }
     });
@@ -320,6 +342,9 @@ var TimetagView = Backbone.View.extend({
   },
 
   render: function() {
+    if (!this.data || !this.finalData || !this.pieData) {
+      return;
+    }
     this.getCharts(this.currentUser);
   },
 
@@ -334,10 +359,13 @@ var TimetagView = Backbone.View.extend({
     this.render();
   },
 
-  highchart: function(container, userid, subtitle, yMax, series) {
+  highChart: function(container, userid, subtitle, yMax, series) {
     var axisLabelStyle = {color: "#000", fontSize: '1.2em'};
     var axisTitleStyle = {color: "#000", fontSize:'1.2em'};
     var legendStyle = {color: "#000", fontSize:'1em', fontWeight: '200'};
+    Highcharts.setOptions({
+    colors: ["#F24B6A", "#2CA4BF", "#4BBF5C", "#F2B950", "#D96941", "#34495e", "#f39c12"]
+    });
     container.highcharts({
       chart: { spacingTop: 50, spacingRight: 20, width: 455, backgroundColor: '#ebe7df', style: {fontFamily: 'Coda'}},
       title: { text: userid, x:20 ,y: -10,style: {fontSize: '2em', color: '#000'} },
@@ -353,8 +381,44 @@ var TimetagView = Backbone.View.extend({
     });
   },
 
+  pieChart: function(container, userid, subtitle, data) {
+    var legendStyle = {color: "#000", fontSize:'1em', fontWeight: '200'};
+    Highcharts.setOptions({
+    colors: ["#F24B6A", "#2CA4BF", "#4BBF5C", "#F2B950", "#D96941", "#34495e", "#f39c12"]
+    });
+    container.highcharts({
+          chart: { spacingTop: 50, spacingRight: 20, width: 455, backgroundColor: '#ebe7df', style: {fontFamily: 'Coda'}, plotBackgroundColor: null, plotBorderWidth: null, plotShadow: false},
+          title: { text: userid, x:20 ,y: -10,style: {fontSize: '2em', color: '#000'} },
+          subtitle: { text: subtitle, x:20 ,y: 30,style: {fontSize: '1.5em', color: '#000'} },
+          tooltip: { pointFormat: '{series.name}: {point.y:.1f}', style: {color: "#000", fontSize:'1em', fontWeight: '200'} },
+          credits: { enabled: false },
+          legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom', itemStyle: legendStyle},
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  size:'100%',
+                  cursor: 'pointer',
+                  showInLegend: true,
+                  dataLabels: {
+                      enabled: true,
+                      format: '{point.name}: {point.y}',
+                      style: {
+                          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                          fontSize: '16px',
+                          fontWeight: '200',
+                          textShadow: 'none'
+                      }
+                  }
+              }
+          },
+          // series: [{ type: 'pie', name: 'Timespan', data: [ ['Tag1', 480], ['Tag2', 780], ['Tag3', 180], ] }]
+          series: [{ type: 'pie', name: 'Timespan', data: data }]
+      });
+  },
+
   generateAreaPoint: function(interval, yMax, series) {
-    var colors = ["#98FF72", "#65D97D", "#42A881", "#1F8784", "#00697D"];
+    // var colors = ["#98FF72", "#65D97D", "#42A881", "#1F8784", "#00697D"];
+    var colors = ["#F24B6A", "#2CA4BF", "#4BBF5C", "#F2B950", "#D96941", "#34495e", "#f39c12"];
     _.each(interval, function(inter, idx) {
       var areaData = [];
       areaData.push([inter[0], 0]);
@@ -365,18 +429,53 @@ var TimetagView = Backbone.View.extend({
     });
   },
 
+  generateAreaPointFinal: function(interval, yMax, series) {
+    // var colors = ["#98FF72", "#65D97D", "#42A881", "#1F8784", "#00697D"];
+    var colors = ["#F24B6A", "#2CA4BF", "#4BBF5C", "#F2B950", "#D96941", "#34495e", "#f39c12"];
+    _.each(interval, function(inter, i) {
+      _.each(inter, function(inner, j) {
+        var areaData = [];
+        areaData.push([inner[0], 0]);
+        areaData.push([inner[0], yMax]);
+        areaData.push([inner[1], yMax]);
+        areaData.push([inner[1], 0]);
+        series.push({type: 'area', name:'Tag' + (i + 1), lineWidth: 0, color: colors[i % colors.length], data: areaData});
+      });
+    });
+  },
+
+  generatePieData: function(userid) {
+    var data = this.pieData[userid];
+    var result = [];
+    var max = data.indexOf(_.max(data, function(d) {
+      return d;
+    }));
+    _.each(data, function(s, i) {
+      if (i === max) {
+        result.push({ name: 'Tag' + (i+1), y: s, sliced: true, selected: true });
+      } else {
+        result.push(['Tag' + (i+1), s]);
+      }
+    });
+    return result;
+  },
+
   getCharts: function(userid) {
-    var coord = this.data[userid].coord;
-    var interval = this.data[userid].interval;
-    var beforeSeries = [{name: 'Play', data: coord, lineWidth: 3}];
-    var afterSeries = [{name: 'Play', data: coord, lineWidth: 3}];
-    var yMax = _.max(coord, function(value) {
+    var coord = this.data[userid].coord,
+        interval = this.data[userid].interval,
+        beforeSeries = [{name: 'Play', data: coord, lineWidth: 3}],
+        afterSeries = [{name: 'Play', data: coord, lineWidth: 3}],
+        finalSeries = [{name: 'Play', data: coord, lineWidth: 3}],
+        yMax = _.max(coord, function(value) {
       return value;
     });
 
     this.generateAreaPoint(interval, yMax, afterSeries);
-    this.highchart(this.$before, userid, 'Before time tag', yMax, beforeSeries);
-    this.highchart(this.$after, userid, 'After time tag', yMax, afterSeries);
+    this.generateAreaPointFinal(this.finalData[userid].interval, yMax, finalSeries);
+    this.highChart(this.$before, userid, 'Before time tag', yMax, beforeSeries);
+    this.highChart(this.$after, userid, 'After time tag', yMax, afterSeries);
+    this.highChart(this.$final, userid, 'Merged tag', yMax, finalSeries);
+    this.pieChart(this.$pie, userid, 'Time tag distribution', this.generatePieData(userid));
   },
 });
 
@@ -392,7 +491,7 @@ var RecResultView = Backbone.View.extend({
     this.$slider.slider({
         min: 1,
         max: 5,
-        value: 3,
+        value: 5,
         orientation: "horizontal",
         range: "min",
         change: function(event, ui) {
@@ -403,10 +502,10 @@ var RecResultView = Backbone.View.extend({
   },
 
   makeTemplateData: function() {
-    var data = this.model.toJSON();
-    // [eID, contentID, className, startTime, ...]
-    var headers = _.keys(data[0]);
-    var templateData = {
+    var data = this.model.toJSON(),
+        headers = _.keys(data[0]),
+
+        templateData = {
         headers: headers,
         data: sortByRate(data).slice(0, 5)
     };
@@ -414,10 +513,10 @@ var RecResultView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$eval.find('.k').html('K: ' + this.k.get('k'));
-    this.$eval.find('.hit').html('Hit: ' + this.test.getHitNum());
-    this.$eval.find('.precision').html('Precision: ' + (this.test.getHitNum() / this.k.get('k')).toFixed(2));
-    this.$eval.find('.recall').html('Recall: ' + (this.test.getHitNum() / this.test.getTotal()).toFixed(2));
+    this.$eval.find('.value:eq(0)').html('  ' + this.k.get('k'));
+    this.$eval.find('.value:eq(1)').html('  ' + this.test.getHitNum());
+    this.$eval.find('.value:eq(2)').html('  ' + (this.test.getHitNum() / this.k.get('k')).toFixed(2));
+    this.$eval.find('.value:eq(3)').html('  ' + (this.test.getHitNum() / this.test.getTotal()).toFixed(2));
     this.$('table').html('');
     var templateData = this.makeTemplateData();
     this.$('table').append(this.template(templateData));
@@ -427,6 +526,11 @@ var RecResultView = Backbone.View.extend({
 
 var RecTestView = TablePagerView.extend({
   template: _.template($('#testdata-template').html()),
+
+  initialize: function() {
+    TablePagerView.prototype.initialize.apply(this, arguments);
+    this.listenTo(this.model, 'sort', this.render);
+  }
 });
 
 var ComparisonView = Backbone.View.extend({
@@ -434,15 +538,13 @@ var ComparisonView = Backbone.View.extend({
 
   initialize: function() {
     this.$inputUser = this.$('#userid-comparison');
-    this.$inputUser.val('00034C989868');
+    this.$inputUser.val('00264C507D6F');
     this.$btnQuery = this.$('#query-comparison');
     this.currentType = 'class';
-
     this.icfBeforeSlider = this.$(".icf-before-slider");
     this.icfAfterSlider = this.$(".icf-after-slider");
     this.ucfBeforeSlider = this.$(".ucf-before-slider");
     this.ucfAfterSlider = this.$(".ucf-after-slider");
-
     this.ucfBK = new app.kParam();
     this.ucfAK = new app.kParam();
     this.icfBK = new app.kParam();
@@ -541,6 +643,7 @@ var ComparisonView = Backbone.View.extend({
       url: 'dataset/recResult.json',
       success: function(data) {
         this.recResult = data;
+        Logger.info("Fetch dataset/recResult.json successfully!")
         this.render();
       }
     });
@@ -551,6 +654,7 @@ var ComparisonView = Backbone.View.extend({
       url: 'dataset/rand2TestPlay.json',
       success: function(data) {
         this.testPlay = data;
+        Logger.info("Fetch dataset/rand2TestPlay.json successfully!")
         this.render();
       }
     });

@@ -2,6 +2,15 @@
 
 var app = app || {};
 
+String.prototype.repeat = String.prototype.repeat ||
+function(times) {
+  var i, result = this;
+  for ( i = 0; i < times; i += 1) {
+    result += this;
+  }
+  return result;
+};
+
 // Add segments to a slider
 $.fn.addSliderSegments = function (amount, orientation) {
   return this.each(function () {
@@ -36,15 +45,4 @@ $(function() {
   setTimeout(function() {
     new app.AppView();
   }, 1000);
-  // new app.AppView();
-  var $slider = $(".slider");
-  if ($slider.length > 0) {
-    $slider.slider({
-      min: 1,
-      max: 5,
-      value: 3,
-      orientation: "horizontal",
-      range: "min"
-    }).addSliderSegments($slider.slider("option").max);
-  }
 });

@@ -10,6 +10,7 @@
   <!--[if lt IE 9]>
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
   <![endif]-->
+  <link href="http://cdn.bootcss.com/normalize/3.0.3/normalize.min.css" rel="stylesheet">
   <link rel="stylesheet" href="dist/css/layout.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
       <a href="https://twitter.com/niminjiecide" target="_blank" class="icon"><i class="fa fa-twitter fa-2x"></i></a>
       <a href="http://weibo.com/niminjie" target="_blank" class="icon"><i class="fa fa-weibo fa-2x"></i></a>
       <div class="debug"></div>
-    </div>
+    </div> <!-- end .header -->
 
     <div class="content dataset">
       <h1 class="text-uppercase">Dataset</h1>
@@ -32,18 +33,18 @@
         <li><a href="#">Testset</a></li>
         <li><a href="#">UserInfo</a></li>
         <li><a href="#">VideoInfo</a></li>
-      </ul>
+      </ul> <!-- end .nav.nav-pills -->
       <table>
-      </table>
-      <nav>
+      </table> <!-- end table -->
+      <nav class="clear-focus">
         <ul class="pager">
           <li><input type="text"><label>/50</label></li>
           <li><a href="#">Go</a></li>
           <li><a href="#">Previous</a></li>
           <li><a href="#">Next</a></li>
-        </ul>
-      </nav>
-    </div>
+        </ul> <!-- end .pager -->
+      </nav> <!-- end nav -->
+    </div> <!-- end .content.dataset -->
     <div class="content timetag">
       <h1 class="text-uppercase">splitTimetag</h1>
       <label class="query-label">User ID:</label>
@@ -52,12 +53,20 @@
       <div class="result row">
         <div class="beforeTag col-xs-6">
           <div id="before"></div>
-        </div>
+        </div> <!-- end .beforeTag.col-xs-6 -->
         <div class="afterTag col-xs-6">
           <div id="after"></div>
-        </div>
+        </div> <!-- end .afterTag.col-xs-6 -->
+      </div> <!-- end .result.row -->
+      <div class="result row">
+        <div class="afterTag col-xs-6">
+          <div id="pie"></div>
+        </div> <!-- end .afterTag.col-xs-6 -->
+        <div class="afterTag col-xs-6">
+          <div id="final"></div>
+        </div> <!-- end .afterTag.col-xs-6 -->
       </div>
-    </div>
+    </div> <!-- end .content.timetag -->
     <div class="content comparison">
       <h1 class="text-uppercase">Experiment</h1>
       <label class="query-label">User ID:</label>
@@ -66,140 +75,122 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#">Class</a></li>
         <li><a href="#">Video</a></li>
-      </ul>
+      </ul> <!-- end .nav.nav-pills -->
       <h2>User Based</h2>
       <div class="compare row">
         <div class="col-xs-6 ucf-rec-list-before">
           <h4>Before time tag</h4>
           <div class="eval">
-            <span class="k">K: </span>
-            <span class="hit">Hit: </span>
-            <span class="precision">Precision: </span>
-            <span class="recall">Recall: </span>
-          </div>
+            <span class="title">K:</span><span class="value"> </span>
+            <span class="title">Hit:</span><span class="value"></span>
+            <span class="title">Precision:</span><span class="value"></span>
+            <span class="title">Recall:</span><span class="value"></span>
+          </div> <!-- end eval -->
           <div class="ucf-before-slider slider"></div>
           <table>
-          </table>
-        </div>
+          </table> <!-- end table -->
+        </div> <!-- end .col-xs-6.ucf-rec-list-before -->
         <div class="col-xs-6 ucf-rec-list-after">
           <h4>After time tag</h4>
           <div class="eval">
-            <span class="k">K: </span>
-            <span class="hit">Hit: </span>
-            <span class="precision">Precision: </span>
-            <span class="recall">Recall: </span>
-          </div>
+            <span class="title">K:</span><span class="value"> </span>
+            <span class="title">Hit:</span><span class="value"></span>
+            <span class="title">Precision:</span><span class="value"></span>
+            <span class="title">Recall:</span><span class="value"></span>
+          </div> <!-- end eval -->
           <div class="ucf-after-slider slider"></div>
           <table>
-          </table>
-        </div>
-      </div>
+          </table> <!-- end table -->
+        </div> <!-- end .col-xs-6.ucf-rec-list-after -->
+      </div> <!-- end .compare.row -->
       <div class="compare row">
         <div class="col-xs-6 ucf-test-list-before">
           <table>
-          </table>
-          <nav>
+          </table> <!-- end table -->
+          <nav class="clear-focus">
             <ul class="pager">
               <li><input type="text"><label>/50</label></li>
               <li><a href="#">Go</a></li>
               <li><a href="#">Previous</a></li>
               <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
+            </ul> <!-- end .pager -->
+          </nav> <!-- end nav -->
+        </div> <!-- end .col-xs-6 ucf-test-list-before -->
         <div class="col-xs-6 ucf-test-list-after">
           <table>
-          </table>
-          <nav>
+          </table> <!-- end table -->
+          <nav class="clear-focus">
             <ul class="pager">
               <li><input type="text"><label>/50</label></li>
               <li><a href="#">Go</a></li>
               <li><a href="#">Previous</a></li>
               <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
+            </ul> <!-- end .page -->
+          </nav> <!-- end nav -->
+        </div> <!-- end .col-xs-6 ucf-test-list-after -->
       </div>
       <h2>Item Based</h2>
       <div class="compare row">
         <div class="col-xs-6 icf-rec-list-before">
           <h4>Before time tag</h4>
           <div class="eval">
-            <span class="k">K: </span>
-            <span class="hit">Hit: </span>
-            <span class="precision">Precision: </span>
-            <span class="recall">Recall: </span>
-          </div>
+            <span class="title">K:</span><span class="value"> </span>
+            <span class="title">Hit:</span><span class="value"></span>
+            <span class="title">Precision:</span><span class="value"></span>
+            <span class="title">Recall:</span><span class="value"></span>
+          </div> <!-- end eval -->
           <div class="icf-before-slider slider"></div>
           <table>
-          </table>
-        </div>
+          </table> <!-- end table -->
+        </div> <!-- end .col-xs-6.icf-rec-list-before -->
         <div class="col-xs-6 icf-rec-list-after">
           <h4>After time tag</h4>
           <div class="eval">
-            <span class="k">K: </span>
-            <span class="hit">Hit: </span>
-            <span class="precision">Precision: </span>
-            <span class="recall">Recall: </span>
-          </div>
+            <span class="title">K:</span><span class="value"> </span>
+            <span class="title">Hit:</span><span class="value"></span>
+            <span class="title">Precision:</span><span class="value"></span>
+            <span class="title">Recall:</span><span class="value"></span>
+          </div> <!-- end .eval -->
           <div class="icf-after-slider slider"></div>
           <table>
-          </table>
-        </div>
-      </div>
+          </table> <!-- end table -->
+        </div> <!-- end .col-xs-6.icf-rec-list-after -->
+      </div> <!-- end .compare.row -->
       <div class="compare row">
         <div class="col-xs-6 icf-test-list-before">
           <table>
-          </table>
-          <nav>
+          </table> <!-- end table -->
+          <nav class="clear-focus">
             <ul class="pager">
               <li><input type="text"><label>/50</label></li>
               <li><a href="#">Go</a></li>
               <li><a href="#">Previous</a></li>
               <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
+            </ul> <!-- end .pager -->
+          </nav> <!-- end nav -->
+        </div> <!-- end .col-xs-6.icf-test-list-before -->
         <div class="col-xs-6 icf-test-list-after">
           <table>
-          </table>
-          <nav>
+          </table> <!-- end table -->
+          <nav class="clear-focus">
             <ul class="pager">
               <li><input type="text"><label>/50</label></li>
               <li><a href="#">Go</a></li>
               <li><a href="#">Previous</a></li>
               <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
+            </ul> <!-- end .pager -->
+          </nav> <!-- end nav -->
+        </div> <!-- end .col-xs-6.icf-test-list-after -->
+      </div> <!-- end .compare.row -->
+    </div> <!-- end .content.comparison -->
     <div class="content evaluation">
       <h1 class="text-uppercase">evaluation</h1>
       <div class="evalChart videoPrecision"></div>
       <div class="videoRecall"></div>
       <div class="classPrecision"></div>
       <div class="classRecall"></div>
-    </div>
-  </div>
-  <script type="text/template" id="recClass-template">
-    <thead>
-      <tr>
-        <% _.each(headers, function(header) { %>
-          <th><%= header.toUpperCase() %></th>
-        <% }); %>
-      </tr>
-    </thead>
-    <tbody>
-      <% _.each(data, function(entry) { %>
-        <tr>
-          <% for (key in entry) { %>
-            <td><%= entry[key] %></td>
-            <% } %>
-        </tr>
-      <% }); %>
-    </tbody>
-  </script>
+    </div> <!-- end .content.evaluation -->
+  </div> <!-- end container -->
   <script type="text/template" id="testdata-template">
     <thead>
       <tr>
@@ -228,7 +219,7 @@
     <thead>
       <tr>
         <% _.each(headers, function(header) { %>
-          <th><%= header.toUpperCase() %></th>
+          <th class="rec-header"><%= header.toUpperCase() %></th>
         <% }); %>
       </tr>
     </thead>
