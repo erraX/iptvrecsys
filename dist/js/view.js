@@ -196,15 +196,18 @@ var EvaluationChart = Backbone.View.extend({
   },
 
   highChart: function() {
+    // Highcharts.setOptions({
+    // colors: ["#F24B6A", "#2CA4BF", "#4BBF5C", "#F2B950", "#D96941", "#34495e", "#f39c12"]
+    // });
     var axisLabelStyle = {color: "#000", fontSize: '1.2em'};
     var axisTitleStyle = {color: "#000", fontSize:'1.2em'};
     var legendStyle = {color: "#000", fontSize:'1em', fontWeight: '200'};
     this.$el.highcharts({
       chart: { type: 'column', backgroundColor: '#ebe7df',style: {fontFamily: 'Coda', fontWeight: 200}},
-      title: { text: this.data.title, style: {fontSize:'3em'} },
+      title: { text: this.data.title, style: {color: '#000', fontSize:'3em'} },
       credits: { enabled: false },
       // colors: [ '#FF8C78', '#8CD6B5', '#FFD661', '#FFF2B5' ],
-      colors: [ '#4FC5C7', '#97EC71', '#DBF977', '#33A6EC' ],
+      colors: [ '#0067A6', '#00ABD8', '#008972', '#00B597' ],
       exporting: { enabled: false },
       xAxis: { categories: [ '1', '2', '3', '4', '5'], title: {margin: 20, text: 'K', style: axisTitleStyle}, labels: {style: axisLabelStyle}, crosshair: true },
       yAxis: { min: 0, max: this.data.max, labels: {style: axisLabelStyle}, title: {margin: 20, text: this.data.type, style: axisTitleStyle} },
@@ -396,6 +399,8 @@ var TimetagView = Backbone.View.extend({
           plotOptions: {
               pie: {
                   allowPointSelect: true,
+                  borderWidth: 2,
+                  borderColor: '#ebe7df',
                   size:'100%',
                   cursor: 'pointer',
                   showInLegend: true,
