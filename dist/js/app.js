@@ -45,4 +45,12 @@ $(function() {
   setTimeout(function() {
     new app.AppView();
   }, 1000);
+
+  // $('body').addClass('stop-scrolling')
+  // new app.AppView();
+  // $(document).ajaxStop(function() {
+  //   $('body').removeClass('stop-scrolling')
+  //   $('.loading.wave').removeClass('wave')
+  //   $('#modal').css('display', 'none');
+  // });
 });

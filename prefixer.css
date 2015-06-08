@@ -1,4 +1,7 @@
 /*----TITLE: Main screen styles | AUTHOR: NIMINJIE | UPDATED: 05/30/2015 by NIMINJIE*/
+a {
+  width: calc(50% - 2em);
+}
 .ui-slider {
   position: relative;
   height: 12px;
@@ -139,17 +142,13 @@ body {
   text-decoration: none; }
   .header .icon {
     opacity: 0;
-    -webkit-animation: show-icon 0.5s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-            animation: show-icon 0.5s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
+    -webkit-animation: show-icon 0.5s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
   .header .icon:nth-child(5) {
-    -webkit-animation-delay: 1s;
-            animation-delay: 1s; }
+    -webkit-animation-delay: 1s; }
   .header .icon:nth-child(6) {
-    -webkit-animation-delay: 1.2s;
-            animation-delay: 1.2s; }
+    -webkit-animation-delay: 1.2s; }
   .header .icon:nth-child(7) {
-    -webkit-animation-delay: 1.4s;
-            animation-delay: 1.4s; }
+    -webkit-animation-delay: 1.4s; }
   .header a {
     margin: 5px;
     color: #000; }
@@ -157,19 +156,16 @@ body {
     margin: 30px;
     opacity: 0;
     font-size: 1.5em;
-    -webkit-animation: pop-in 0.4s 0.6s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-            animation: pop-in 0.4s 0.6s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
+    -webkit-animation: pop-in 0.4s 0.6s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
   .header h1 {
     opacity: 0;
     font-size: 7em;
-    -webkit-animation: pop-in 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-            animation: pop-in 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
+    -webkit-animation: pop-in 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
   .header h2 {
     opacity: 0;
     font-size: 2em;
     font-weight: 200;
-    -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64);
-            animation: pop-in 0.4s 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
+    -webkit-animation: pop-in 0.4s 0.4s forwards cubic-bezier(0.64, 1.87, 0.64, 0.64); }
 
 /* =NAV
 ----------------------*/
@@ -188,19 +184,13 @@ body {
       .nav-pills li a:focus, .nav-pills li a:hover {
         color: #fff;
         background-color: #2ca4bf;
-        transition: background-color .3s, color .3s;
-        -ms-transition: background-color .3s, color .3s;
-        -moz-transition: background-color .3s, color .3s;
-        -o-transition: background-color .3s, color .3s;
-        -webkit-transition: background-color .3s, color .3s; }
+        -webkit-transition: background-color .3s, color .3s;
+                transition: background-color .3s, color .3s; }
   .nav-pills li.active a, .nav-pills li.active a:focus, .nav-pills li.active a:hover {
     color: #fff;
     background-color: #2ca4bf;
-    transition: background-color .3s, color .3s;
-    -ms-transition: background-color .3s, color .3s;
-    -moz-transition: background-color .3s, color .3s;
-    -o-transition: background-color .3s, color .3s;
-    -webkit-transition: background-color .3s, color .3s; }
+    -webkit-transition: background-color .3s, color .3s;
+            transition: background-color .3s, color .3s; }
 
 nav.clear-focus ul.pager {
   width: 252px;
@@ -391,9 +381,7 @@ table {
     background-size: 200px 200px; } }
 .wave {
   background-image: url("http://i.imgur.com/uFpLbYt.png");
-  /* -background-clip: text; */
-  /* -o-background-clip: text; */
-  /* -webkit-background-clip: text; */
+  -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: 0px 0px rgba(255, 255, 255, 0.06);

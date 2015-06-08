@@ -393,7 +393,7 @@ var TimetagView = Backbone.View.extend({
           chart: { spacingTop: 50, spacingRight: 20, width: 455, backgroundColor: '#ebe7df', style: {fontFamily: 'Coda'}, plotBackgroundColor: null, plotBorderWidth: null, plotShadow: false},
           title: { text: userid, x:20 ,y: -10,style: {fontSize: '2em', color: '#000'} },
           subtitle: { text: subtitle, x:20 ,y: 30,style: {fontSize: '1.5em', color: '#000'} },
-          tooltip: { pointFormat: '{series.name}: {point.y:.1f}', style: {color: "#000", fontSize:'1em', fontWeight: '200'} },
+          tooltip: { pointFormat: '{series.name}: {point.y}min', style: {color: "#000", fontSize:'1em', fontWeight: '200'} },
           credits: { enabled: false },
           legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom', itemStyle: legendStyle},
           plotOptions: {
@@ -406,10 +406,10 @@ var TimetagView = Backbone.View.extend({
                   showInLegend: true,
                   dataLabels: {
                       enabled: true,
-                      format: '{point.name}: {point.y}',
+                      format: '{point.name}: {point.y}min',
                       style: {
                           color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
-                          fontSize: '16px',
+                          fontSize: '12px',
                           fontWeight: '200',
                           textShadow: 'none'
                       }
@@ -648,7 +648,7 @@ var ComparisonView = Backbone.View.extend({
       url: 'dataset/recResult.json',
       success: function(data) {
         this.recResult = data;
-        Logger.info("Fetch dataset/recResult.json successfully!")
+        Logger.info("Fetch dataset/recResult.json successfully!");
         this.render();
       }
     });
@@ -659,7 +659,7 @@ var ComparisonView = Backbone.View.extend({
       url: 'dataset/rand2TestPlay.json',
       success: function(data) {
         this.testPlay = data;
-        Logger.info("Fetch dataset/rand2TestPlay.json successfully!")
+        Logger.info("Fetch dataset/rand2TestPlay.json successfully!");
         this.render();
       }
     });

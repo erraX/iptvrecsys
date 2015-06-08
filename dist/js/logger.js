@@ -60,6 +60,7 @@
       } 
     } 
   }; 
-  if (typeof window.Logger == 'undefined' || window.Logger == null) 
+  if (typeof window.Logger === 'undefined' || window.Logger === null) {
     window.Logger = new logger(logger.LEVEL_DEBUG, null, logger.VIEW_TYPE_CONSOLE); 
+  }
 })(); 

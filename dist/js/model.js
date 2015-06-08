@@ -1,4 +1,3 @@
-/*global $,jQuery,_,Backbone */
 
 var app = app || {};
 
