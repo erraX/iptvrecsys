@@ -58,10 +58,10 @@ module.exports = function(grunt) {
         tasks: ['sass', 'autoprefixer'],
       },
  
-      js: {
-        files: '<%= uglify.dist.src %>',
-        tasks: ['jshint','uglify'],
-      }
+      // js: {
+      //   files: '<%= uglify.dist.src %>',
+      //   tasks: ['jshint','uglify'],
+      // }
     }
   });
 

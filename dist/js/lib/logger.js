@@ -1,4 +1,4 @@
-(function () { 
+define(function() {
   var logger = function (level, object, viewType) { 
     this.level = level; 
     this.object = object; 
@@ -22,7 +22,7 @@
         this.object = document.getElementById(o); 
       } else { 
         this.object = o; 
-      } 
+      }
     },
     setViewType: function (type) { 
       this.viewType = type; 
@@ -60,7 +60,8 @@
       } 
     } 
   }; 
-  if (typeof window.Logger === 'undefined' || window.Logger === null) {
-    window.Logger = new logger(logger.LEVEL_DEBUG, null, logger.VIEW_TYPE_CONSOLE); 
-  }
-})(); 
+  // if (typeof window.Logger === 'undefined' || window.Logger === null) {
+  //   window.Logger = new logger(logger.LEVEL_DEBUG, null, logger.VIEW_TYPE_CONSOLE); 
+  // }
+  return new logger(logger.LEVEL_DEBUG, null, logger.VIEW_TYPE_CONSOLE);
+});
